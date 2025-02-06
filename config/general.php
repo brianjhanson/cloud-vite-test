@@ -27,7 +27,6 @@ return GeneralConfig::create()
     ])
 
     // Images
-    ->imageDriver(App::env('CRAFT_IMAGE_DRIVER'))
     ->defaultImageQuality(90)
     ->maxUploadFileSize('10M')
 
@@ -55,10 +54,8 @@ return GeneralConfig::create()
 
     // URLs
     ->omitScriptNameInUrls(true)
-    ->cpTrigger(App::env('CRAFT_CP_TRIGGER'))
 
     // Caching
-    ->enableTemplateCaching(App::env('CRAFT_TEMPLATE_CACHING'))
     ->maxCachedCloudImageSize(0)
 
     // Security
