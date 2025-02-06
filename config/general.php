@@ -48,7 +48,6 @@ return GeneralConfig::create()
     ])
 
     // Misc
-    ->devMode(App::env('CRAFT_DEV_MODE'))
     ->allowUpdates($isDev)
     ->allowAdminChanges($isDev)
     ->maxRevisions(10)
