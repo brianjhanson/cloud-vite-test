@@ -2,7 +2,8 @@
 {# Layout Template
 {# =============================================================== #}
 
-{% include '_dist/_partials/vite' ignore missing %}
+{{ viteIncludes('templates/_partials/vite.twig') }}
+{#{% include '_dist/_partials/vite' ignore missing %}#}
 {% import '_macros/theme' as theme %}
 
 {# Eager Load Global #}

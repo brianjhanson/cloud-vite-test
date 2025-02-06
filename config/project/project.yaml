@@ -1,8 +1,19 @@
-dateModified: 1738867084
+dateModified: 1738871128
 email:
   fromEmail: brian@pixelandtonic.com
   fromName: 'Vite Test'
   transportType: craft\mail\transportadapters\Sendmail
+fs:
+  cloud:
+    hasUrls: true
+    name: Cloud
+    settings:
+      expires: '1 years'
+      hasUrls: true
+      localFsPath: '@webroot/uploads'
+      localFsUrl: '@web/uploads'
+      subpath: null
+    type: craft\cloud\fs\AssetsFs
 meta:
   __names__:
     09feb30b-590f-4389-b6b4-8f10505991ca: 'Vite Test' # Vite Test

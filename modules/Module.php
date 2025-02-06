@@ -4,9 +4,10 @@ namespace modules;
 use Craft;
 use craft\events\RegisterTemplateRootsEvent;
 use craft\helpers\App;
-use craft\web\twig\variables\CraftVariable;
 use craft\web\View;
+use craft\web\twig\variables\CraftVariable;
 use modules\services\Twig;
+use modules\web\twig\Vite;
 use yii\base\Event;
 
 /**
@@ -38,6 +39,7 @@ class Module extends \yii\base\Module
         Craft::$app->onInit(function () {
             $this->attachEventHandlers();
         });
+        Craft::$app->view->registerTwigExtension(new Vite());
     }
     private function attachEventHandlers(): void
     {
