@@ -1,4 +1,4 @@
-dateModified: 1738865377
+dateModified: 1738867084
 email:
   fromEmail: brian@pixelandtonic.com
   fromName: 'Vite Test'
@@ -11,9 +11,10 @@ plugins:
   seomatic:
     edition: standard
     enabled: true
+    licenseKey: T9DLMVD0LF5B4QZ7DUP0QR8R
     schemaVersion: 3.0.12
 system:
-  edition: solo
+  edition: pro
   live: true
   name: 'Vite Test'
   schemaVersion: 5.6.0.2
