@@ -1,0 +1,16 @@
+{# =============================================================== #}
+{# Debug Grid
+{# =============================================================== #}
+{#
+  {% include '_partials/debug-grid' %}
+#}
+
+{% set columnCount = 12 %}
+
+<div class="debug-grid" data-module-debug-grid>
+  <div class="debug-grid__inner">
+    {% for idx in 1..columnCount %}
+      <span class="debug-grid__column"></span>
+    {% endfor %}
+  </div>
+</div>

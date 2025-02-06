@@ -1,0 +1,22 @@
+/*
+Input Select
+
+A generic select input.
+*/
+
+.input-select {
+}
+
+.input-select__label {
+  @include form-common-label;
+}
+
+.input-select__input {
+  line-height: 1.2;
+  background: url('/images/svg/icon/select-down.svg') no-repeat center right;
+  @include form-common-input;
+}
+
+.input-select__errors {
+  @include form-common-errors;
+}

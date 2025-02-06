@@ -1,0 +1,58 @@
+// ===============================================================
+// Base Styles
+// ===============================================================
+
+/*
+  General styling to provide a clean, solid base
+*/
+
+:root {
+  // Top-level CSS custom properties
+}
+
+html,
+body {
+  background-color: var(--theme-bg);
+}
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+
+  // Don't transition anything until we're ready
+  &.preload-transitions * {
+    transition: none !important;
+  }
+}
+
+body {
+  color: var(--theme-text);
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+button,
+select,
+::file-selector-button {
+  // Prevent Safari iOS from adding styles to elements
+  color: inherit;
+  font-weight: normal;
+}

@@ -1,0 +1,18 @@
+{# =============================================================== #}
+{# Styleguide color Item
+{# =============================================================== #}
+{#
+  {% include 'styleguide/_partials/styleguide-color-item' with {
+    color: 'azule'
+  } only %}
+#}
+
+<div class="styleguide-color-item">
+  <div class="styleguide-color-item__example h-color-bg-{{ name }}"></div>
+
+  <div class="styleguide-color-item__code">
+    {% include 'styleguide/_partials/styleguide-code' with {
+      code: "color(#{ name });"
+    } only %}
+  </div>
+</div>

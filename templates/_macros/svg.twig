@@ -1,0 +1,24 @@
+{# =============================================================== #}
+{# SVG
+{# =============================================================== #}
+{#
+  {% import '_macros/svg' as svg %}
+#}
+
+{# ------------------------------------------------------------------ #}
+{# Use
+{# ------------------------------------------------------------------ #}
+{#
+  {{ svg.use(id, title = '') }}
+
+  Display an SVG symbol with <use>
+
+  @param id (String)        - [required] The ID of the SVG symbol
+#}
+
+{% macro use(id, title = '') %}
+<svg {% if title == '' %}aria-hidden="true"{% endif %}>
+  <title>{{ title }}</title>
+  <use xlink:href="#{{ id }}" />
+</svg>
+{% endmacro %}

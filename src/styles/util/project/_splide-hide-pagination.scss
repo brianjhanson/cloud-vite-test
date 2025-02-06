@@ -1,0 +1,11 @@
+/*
+Splide Hide Pagination
+
+Hides Splide pagination
+*/
+
+@mixin splide-hide-pagination {
+  .splide__pagination {
+    display: none;
+  }
+}

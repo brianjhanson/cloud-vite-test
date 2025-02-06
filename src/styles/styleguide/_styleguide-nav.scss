@@ -1,0 +1,33 @@
+/*
+Styleguide Nav
+
+Navigation for the styleguide
+*/
+
+.styleguide-nav {
+  @include theme-dark;
+  @include size(outer, padding-left);
+  @include size(outer, padding-right);
+  background-color: var(--theme-bg);
+}
+
+.styleguide-nav__item {
+  display: inline-block;
+  color: var(--theme-text);
+  font-size: 15px;
+  line-height: 60px;
+  margin-right: 10px;
+  transition: text-decoration-color 0.15s;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.1em;
+
+  &:hover {
+    text-decoration-color: inherit;
+  }
+
+  &.is-active {
+    color: #99c9c0;
+  }
+}

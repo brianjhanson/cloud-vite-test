@@ -1,0 +1,59 @@
+{# =============================================================== #}
+{# Layout - Slider Navigation
+{# =============================================================== #}
+{#
+  {% embed '_embeds/l-slider-navigation' with {
+    key: 'some-unique-key',
+    modifiers: ['slideshow']
+  } only %}
+    {% block cta %}
+      …
+    {% endblock %}
+  {% endembed %}
+#}
+
+{% set classes = craft.twig.modifiers('l-slider-navigation', modifiers ?? []) %}
+{% set key = key ??? null %}
+
+<footer class="l-slider-navigation {{ classes }}">
+  <div class="l-slider-navigation__inner">
+
+    {# CTA #}
+    {% if block('cta') ??? null %}
+      <div class="l-slider-navigation__cta">
+        {% block cta %}{% endblock %}
+      </div>
+    {% endif %}
+
+    {# Nav #}
+    <div class="l-slider-navigation__nav">
+      {# Customize location of pagination #}
+      <ul class="l-slider-navigation__pagination splide__pagination"></ul>
+
+      {# Count #}
+      <div class="l-slider-navigation__count" data-module-slide-count="{{ key }}">
+        {# Numerator #}
+        <span class="l-slider-navigation__numerator" data-slide-count="numerator">1</span>
+        /
+        {# Denominator #}
+        <span class="l-slider-navigation__denominator" data-slide-count="denominator">1</span>
+      </div>
+
+      {# Arrows #}
+      <div class="l-slider-navigation__arrows">
+        <div class="splide__arrows">
+          <button class="splide__arrow splide__arrow--prev" aria-label="Previous">
+            {% import '_macros/svg' as svg %}
+            {{ svg.use('circle-arrow-left') }}
+          </button>
+
+          <button class="splide__arrow splide__arrow--next" aria-label="Next">
+            {% import '_macros/svg' as svg %}
+            {{ svg.use('circle-arrow-right') }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</footer>

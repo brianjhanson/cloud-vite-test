@@ -1,0 +1,469 @@
+{# =============================================================== #}
+{# Bits
+{# =============================================================== #}
+{#
+{% import '_macros/bits' as bits %}
+#}
+
+
+{# ------------------------------------------------------------------ #}
+{# Input: Text
+{# ------------------------------------------------------------------ #}
+{#
+  {% import '_macros/bits' as bits %}
+  {{ bits.text({
+    mainClass: 'input-text',
+    classes: '',
+    labelSuffixClass: '__label',
+    inputSuffixClass: '__input',
+    errorsSuffixClass: '__errors',
+    showLabel: false,
+    name: 'email',
+    label: 'Email',
+    value: '',
+    type: 'text',
+    placeholder: 'someone@gmail.com',
+    autocomplete: false,
+    errors: ['Some error message'],
+    disabled: false,
+    required: false,
+    inputAttrs: {
+      'minlength': 1,
+      'maxlength': 5
+    }
+  }) }}
+
+  Renders a generic text input.
+#}
+
+{%- macro text(options = {}) -%}
+
+{% set defaults = {
+  mainClass: 'input-text',
+  classes: '',
+  labelSuffixClass: '__label',
+  inputSuffixClass: '__input',
+  errorsSuffixClass: '__errors',
+  type: 'text',
+  name: 'fallback',
+  label: 'Fallback Label',
+  showLabel: true,
+  autocomplete: false,
+  placeholder: null,
+  disabled: false,
+  required: false,
+  errors: [],
+  inputAttrs: {}
+} %}
+
+{% set options = defaults | merge(options) %}
+
+{% set isTextarea = options.type == 'textarea' %}
+{% set el = isTextarea ? 'textarea' : 'input' %}
+{% set autocomplete = options.autocomplete ?? false ? 'on' : 'off' %}
+
+<div
+  class="{{ options.mainClass }} {{ options.classes }} {% if options.required %}{{ options.mainClass }}--required{% endif %}"
+  data-type="{{ options.type }}"
+  data-name="{{ options.name }}"
+>
+  {% if options.showLabel%}
+    <label
+      class="{{ options.mainClass }}{{ options.labelSuffixClass }}"
+      for="{{ options.name }}">
+        {{ options.label }}
+    </label>
+  {% endif %}
+
+  <{{ el }}
+    class="{{ options.mainClass }}{{ options.inputSuffixClass }}"
+    name="{{ options.name }}"
+    id="{{ options.name }}"
+    {% if not isTextarea %}
+    value="{{ options.value ?? '' }}"
+    type="{{ options.type }}"
+    {% endif %}
+    {% if not isTextarea %}type="{{ options.type }}"{% endif %}
+    {% if options.placeholder %}placeholder="{{ options.placeholder }}"{% endif %}
+    {% if options.disabled %}disabled{% endif %}
+    {% if options.required %}required{% endif %}
+    autocorrect="off"
+    autocapitalize="off"
+    autocomplete="{{ autocomplete }}"
+    {%- for key, val in options.inputAttrs -%}
+      {{ key }}="{{ val }}"
+    {%- endfor -%}
+  >{% if isTextarea %}{{ options.value ?? '' }}</{{ el }}>{% endif %}
+
+  {% if options.errors | length %}
+    <div class="{{ options.mainClass }}{{ options.errorsSuffixClass }}">
+      {% for error in options.errors %}
+        <p>{{ error }}</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
+
+{%- endmacro %}
+
+
+{# ------------------------------------------------------------------ #}
+{# Input: Textarea
+{# ------------------------------------------------------------------ #}
+{#
+  {% import '_macros/bits' as bits %}
+  {{ bits.textarea({
+    mainClass: 'input-textarea',
+    classes: '',
+    showLabel: true,
+    name: 'comment',
+    label: 'Comment',
+    value: '',
+    placeholder: 'The quick brown fox jumped over the lazy dog',
+    autocomplete: false,
+    errors: ['Some error message'],
+    disabled: false,
+    required: false,
+    inputAttrs: {
+      'rows': 3
+    }
+  }) }}
+
+  Renders a generic textarea.
+#}
+
+{%- macro textarea(options = {}) -%}
+
+{% import _self as macros %}
+
+{% set defaults = {
+  mainClass: 'input-textarea',
+  value: '',
+  type: 'textarea'
+} %}
+
+{% set options = defaults | merge(options) %}
+
+{{ macros.text(options) }}
+
+{%- endmacro %}
+
+
+{# ------------------------------------------------------------------ #}
+{# Input: Selectable
+{# ------------------------------------------------------------------ #}
+{#
+  {% import '_macros/bits' as bits %}
+  {{ bits.selectable({
+    value: 'foo',
+    mainClass: 'input-checkbox',
+    classes: '',
+    labelSuffixClass: '__label',
+    itemsSuffixClass: '__items',
+    itemSuffixClass: '__item',
+    itemInputSuffixClass: '__item-input',
+    itemLabelSuffixClass: '__item-label',
+    name: 'options',
+    label: 'Options',
+    type: 'checkbox|radio',
+    unselectedSvg: '<svg … />',
+    selectedSvg: '<svg … />'',
+    inputAttributes: {},
+    items: [
+      {
+        label: 'Foo',
+        value: 'foo',
+        sub: {
+          name: 'subOptions',
+          value: 'sub1
+          label: 'Sub Options',
+          type: 'radio',
+          items: [
+            {
+              label: 'Sub 1',
+              value: 'sub-1',
+            },
+            {
+              label: 'Sub 2',
+              value: 'sub-2',
+            },
+          ]
+        },
+      }
+    ],
+  }) }}
+
+  Renders a "selectable" input, which is either a "radio" or a "checkbox".
+#}
+
+{%- macro selectable(options = {}) -%}
+
+{% set defaults = {
+  mainClass: 'input-selectable',
+  classes: '',
+  labelSuffixClass: '__label',
+  itemsSuffixClass: '__items',
+  itemSuffixClass: '__item',
+  itemInputSuffixClass: '__item-input',
+  itemLabelSuffixClass: '__item-label',
+  errorsSuffixClass: '__errors',
+  inputAttributes: {},
+  name: 'options',
+  type: 'checkbox',
+  label: null,
+  unselectedSvg: null,
+  selectedSvg: null,
+  options: [],
+  errors: [],
+  required: false,
+  value: null,
+} %}
+
+{% set options = defaults | merge(options) %}
+
+<div class="{{ options.mainClass }} {{ options.mainClass }}--{{ options.type }} {{ options.classes }}">
+  {% if options.label %}
+    <h3 class="{{ options.mainClass }}{{ options.labelSuffixClass }}">{{ options.label }}</h3>
+  {% endif %}
+
+  <div class="{{ options.mainClass }}{{ options.itemsSuffixClass }}">
+    {% for item in options.items %}
+      <div
+        class="{{ options.mainClass }}{{ options.itemSuffixClass }}"
+        {% if item.sub ?? false %}
+          data-selectable-has-sub-items
+        {% endif %}
+      >
+        <input
+          name="{{ options.name }}"
+          id="{{ item.value }}"
+          name="{{ options.name }}"
+          type="{{ options.type }}"
+          class="{{ options.mainClass }}{{ options.itemInputSuffixClass }}"
+          value="{{ item.value }}"
+          {%- if options.required ?? false -%}
+            required
+          {%- endif -%}
+          {% if item.value in options.value ??? null %}
+            checked
+          {% endif %}
+          {% if item.disabled ?? false %}
+            disabled
+          {% endif %}
+          {% if item.sub ?? false %}
+            data-selectable-item-has-sub-items
+          {% endif %}
+          {{ attr(options.inputAttributes) }}
+        >
+        <label class="{{ options.mainClass }}{{ options.itemLabelSuffixClass }}" for="{{ item.value }}">
+          {% if item.graphic ??? null %}
+            <span class="{{ options.mainClass }}__item-graphic">{{ item.graphic }}</span>
+          {% elseif options.unselectedSvg ?? null and options.selectedSvg ?? null %}
+            <span class="{{ options.mainClass }}__item-label-unselected">{{ options.unselectedSvg | raw }}</span>
+            <span class="{{ options.mainClass }}__item-label-selected">{{ options.selectedSvg | raw }}</span>
+          {% endif %}
+          {{ item.label }}
+        </label>
+
+        {# Sub-Options #}
+        {% if item.sub ?? null %}
+          <div class="{{ options.mainClass }}{{ options.itemSuffixClass }}__sub" data-selectable-sub-items>
+            {{ _self.selectable(options | merge(item.sub)) }}
+          </div>
+        {% endif %}
+      </div>
+
+    {% endfor %}
+  </div>
+
+  {% if options.errors | length %}
+    <div class="{{ options.mainClass }}{{ options.errorsSuffixClass }}">
+      {% for error in options.errors %}
+        <p>{{ error }}</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
+
+{%- endmacro %}
+
+
+{# ------------------------------------------------------------------ #}
+{# Input: Select
+{# ------------------------------------------------------------------ #}
+{#
+  {% import '_macros/bits' as bits %}
+  {{ bits.select({
+    mainClass: 'input-select',
+    classes: '',
+    labelSuffixClass: '__label',
+    inputSuffixClass: '__input',
+    errorsSuffixClass: '__errors',
+    inputAttributes: '',
+    name: 'options',
+    label: null,
+    errors: [],
+    required: false,
+    value: null,
+    options: [
+      {
+        label: 'Foo',
+        value: 'foo',
+      }
+    ],
+  }) }}
+
+  Renders a <select> dropdown.
+#}
+
+{%- macro select(options = {}) -%}
+
+  {% set defaults = {
+    mainClass: 'input-select',
+    classes: '',
+    labelSuffixClass: '__label',
+    inputSuffixClass: '__input',
+    errorsSuffixClass: '__errors',
+    inputAttributes: '',
+    name: 'options',
+    label: null,
+    options: [],
+    errors: [],
+    required: false,
+    value: null,
+  } %}
+
+  {% set options = defaults | merge(options) %}
+
+  <div class="{{ options.mainClass}} {{ options.classes }}">
+    {% if options.label ?? null %}
+      <label for="{{ options.name }}" class="{{ options.mainClass}}{{ options.labelSuffixClass }}">{{ options.label }}</label>
+    {% endif %}
+
+    <div class="{{ options.mainClass}}__inner">
+      <select
+        name="{{ options.name }}"
+        {% if not options.label ?? null %}aria-label="{{ options.name }}"{% endif %}
+        class="{{ options.mainClass}}{{ options.inputSuffixClass }}"
+        {% if options.required ?? false %}required{% endif %}
+      >
+        {% for option in options.options ?? [] %}
+          <option
+            value="{{ option.value }}"
+            {% if options.value ?? null == option.value %}selected{% endif %}
+          >{{ option.label }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    {% if options.errors is defined and options.errors | length %}
+      <div class="{{ options.mainClass}}{{ options.errorsSuffixClass }}">
+        {% for error in errors %}
+          <p>{{ error }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+{%- endmacro -%}
+
+
+{# ------------------------------------------------------------------ #}
+{# Button
+{# ------------------------------------------------------------------ #}
+{#
+  {% import '_macros/bits' as bits %}
+  {{ bits.btn({
+    mainClass: 'btn',
+    modifiers: [],
+    text: 'Submit',
+    type: 'button'
+  }) }}
+
+  {% set graphic %}
+    {{ source('/example.svg') }}
+  {% endset %}
+
+  {{ bits.btn({
+    mainClass: 'btn',
+    modifiers: [],
+    text: 'Visit Our Website',
+    url: 'https://craftcms.com',
+    target: '_blank',
+    graphic: graphic,
+  }) }}
+
+  Renders either an `a` or `button`.
+#}
+
+{%- macro btn(options = {}) -%}
+{% set defaultEl = 'button' %}
+
+{% set defaults = {
+  el: defaultEl,
+  mainClass: 'btn',
+  textSuffixClass: '__text',
+  bgSuffixClass: '__bg',
+  graphicSuffixClass: '__graphic',
+  attributes: null,
+  withGraphicModifierClass: '--with-graphic',
+  inlineGraphicSuffixClass: '__inline-graphic',
+  withInlineGraphicModifierClass: '--with-inline-graphic',
+  modifiers: [],
+  duplicate: false,
+  color: null,
+  classes: '',
+  type: null,
+  url: null,
+  graphic: null,
+  inlineGraphic: null,
+  tabindex: null,
+  innerAttributes: null,
+  target: null,
+} %}
+
+{% set options = defaults | merge(options) %}
+
+{# Set element #}
+{% set el = options.el ??? defaultEl %}
+
+{# Use a link if an url is set and no custom element is set #}
+{% if options.url and el == defaultEl %}
+  {% set el = 'a' %}
+{% endif %}
+
+{% set classes = craft.twig.modifiers(options.mainClass, options.modifiers ?? []) %}
+
+<div
+  class="{{ options.mainClass }} {{ classes }} {% if options.graphic %}{{ options.mainClass }}{{ options.withGraphicModifierClass }}{% endif %}"
+  {% if options.color ?? null %}
+    style="--color: {{ options.color }};"
+  {% endif %}
+  {% if options.attributes %}{{ attr(options.attributes) }}{% endif %}
+>
+  <{{ el }}
+    class="{{ options.mainClass }}__inner"
+    {% if options.tabindex %}tabindex="{{ options.tabindex }}"{% endif %}
+    {% if options.url and el =='a' %}href="{{ options.url }}"{% endif %}
+    {% if options.type and not options.url %}type="{{ options.type }}"{% endif %}
+    {% if options.url and options.target == '_blank' %}
+      target="_blank"
+      rel="noopener noreferrer"
+    {% endif %}
+    {% if options.innerAttributes %}{{ attr(options.innerAttributes) }}{% endif %}
+  >
+    <span class="{{ options.mainClass }}{{ options.textSuffixClass }}"><span>{{ options.text }}</span>{% if options.inlineGraphic %}<div class="{{ options.mainClass }}{{ options.inlineGraphicSuffixClass }}">{{ options.inlineGraphic }}</div>{% endif %}</span>
+    {% if options.duplicate %}
+      <span aria-hidden="true" tabindex='-1' class="{{ options.mainClass }}{{ options.textSuffixClass }}--duplicate"><span>{{ options.text }}</span>{% if options.inlineGraphic %}<div class="{{ options.mainClass }}{{ options.inlineGraphicSuffixClass }}">{{ options.inlineGraphic }}</div>{% endif %}</span>
+    {% endif %}
+  </{{ el }}>
+
+  <div class="{{ options.mainClass }}{{ options.bgSuffixClass }}"></div>
+
+  {% if options.graphic %}
+    <div class="{{ options.mainClass }}{{ options.graphicSuffixClass }}">
+      {{ options.graphic }}
+    </div>
+  {% endif %}
+</div>
+
+{%- endmacro %}

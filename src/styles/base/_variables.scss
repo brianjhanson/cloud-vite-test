@@ -1,0 +1,239 @@
+@use 'sass:math';
+
+// ===============================================================
+// Site Wide Variables
+// ===============================================================
+
+/*
+  Variables that help define the design system across the site,
+  including things like colors, spacing, typography,
+  transitions, ratios, z-index, and more.
+*/
+
+// ---------------------------------------------------------------
+// Colors
+// ---------------------------------------------------------------
+/*
+  Each color will be available to use via the `color(black)` mixin
+  or via the auto-generated `h-color-bg-black` or `h-color-text-black`
+  helper classes in your markup.
+
+  https://github.com/cmalven/sass-toolkit#color
+*/
+
+$colors: (
+  black: #333,
+  white: #fff,
+);
+
+// Tints
+$colors: map-merge(
+  $colors,
+  (
+    gray: mix(white, map-get($colors, black), 50%),
+  )
+);
+
+// Add colors as CSS variables
+:root {
+  @each $name, $value in $colors {
+    --color-#{'' + $name}: #{$value};
+  }
+}
+
+// ---------------------------------------------------------------
+// Media Queries
+// ---------------------------------------------------------------
+/*
+  Each breakpoint can be used by the `media` provided by include-media,
+  most commonly used as `@include media('>=medium') { … }`
+
+  https://www.npmjs.com/package/include-media
+*/
+
+$breakpoints: (
+  small: 500px,
+  medium: 768px,
+  large: 1024px,
+  xlarge: 1280px,
+  full: 1440px,
+  content-max: 1400px,
+  max: 1600px,
+);
+
+// Variants
+$breakpoints: map-merge(
+  $breakpoints,
+  (
+    nav-full: map-get($breakpoints, large),
+  )
+);
+
+// Add breakpoints as CSS variables
+:root {
+  @each $name, $size in $breakpoints {
+    --mq-bp-#{$name}: #{$size};
+  }
+}
+
+// ---------------------------------------------------------------
+// Spacing
+// ---------------------------------------------------------------
+/*
+  Fluid sizes smoothly adjust a value across a range of breakpoints,
+  with precise control over the value at each breakpoint. Most often
+  used for `margin` and `padding`..
+
+  Only the `default` key for each set is required, so you can
+  store static spacing values here as well and apply spacing consistently
+  across the site.
+
+  Most commonly used as `@include size(section-vertical, margin-top);`
+
+  https://github.com/cmalven/sass-toolkit#size
+*/
+
+$sizes: (
+  none: (
+    default: 0px,
+    max: 0px,
+  ),
+  outer: (
+    default: 25px,
+    max:
+      math.div(
+        map-get($breakpoints, max) - map-get($breakpoints, content-max),
+        2
+      ),
+  ),
+  section-vertical: (
+    default: 50px,
+    max: 100px,
+  ),
+  grid-gutter: (
+    default: 20px,
+    max: 40px,
+  ),
+
+  8: (
+    default: 8px,
+  ),
+  12: (
+    default: 12px,
+  ),
+  16: (
+    default: 16px,
+  ),
+  24: (
+    default: 24px,
+  ),
+  32: (
+    default: 32px,
+  ),
+  40: (
+    default: 40px,
+  ),
+  48: (
+    default: 48px,
+  ),
+  56: (
+    default: 56px,
+  ),
+  64: (
+    default: 64px,
+  ),
+  80: (
+    default: 64px,
+    full: 80px,
+  ),
+  96: (
+    default: 64px,
+    max: 96px,
+  ),
+  128: (
+    default: 64px,
+    max: 128px,
+  ),
+  256: (
+    default: 64px,
+    max: 256px,
+  ),
+);
+
+// ---------------------------------------------------------------
+// Z-Index
+// ---------------------------------------------------------------
+
+$z-index-dialog: 200;
+$z-index-global-header: 100;
+
+// ---------------------------------------------------------------
+// Grid
+// ---------------------------------------------------------------
+
+:root {
+  --grid-columns: 12;
+  --grid-gutter: var(--size-grid-gutter);
+}
+
+// ---------------------------------------------------------------
+// Aspect Ratio
+// ---------------------------------------------------------------
+
+$aspect-ratio-4x3: 4, 3;
+
+// ---------------------------------------------------------------
+// Transitions
+// ---------------------------------------------------------------
+
+$transition-hover-color: 0.5s ease(out-quint);
+
+// ---------------------------------------------------------------
+// Type – Font Stacks
+// ---------------------------------------------------------------
+/*
+  Font stacks are a collection of font family, weight, and style
+  that can be easily reused by the `$type-styles` below.
+
+  https://github.com/cmalven/sass-toolkit#type-styles
+*/
+
+$font-stacks: (
+  helvetica: (
+    font-family: (
+      'Helvetica Neue',
+      arial,
+      sans-serif,
+    ),
+    font-weight: normal,
+    font-style: normal,
+  ),
+);
+
+// ---------------------------------------------------------------
+// Type – Styles
+// ---------------------------------------------------------------
+/*
+  Type styles are combinations of font, responsive sizing, and
+  other text styles that can be easily reused across the site.
+  Most commonly used as `@include type-style(body-1)`
+
+  At very large font sizes, it can be helpful to use the `fluid: true`
+  and `px` values to fluidly scale the font size across breakpoints
+  rather than the default of jumping immediately to the new size.
+
+  https://github.com/cmalven/sass-toolkit#type-styles
+*/
+
+$type-styles: (
+  body-1: (
+    stack: helvetica,
+    sizes: (
+      default: (
+        font-size: 1.3rem,
+        line-height: 1.4,
+      ),
+      medium: 2.7rem,
+    ),
+  ),
+);

@@ -1,0 +1,35 @@
+/*
+Debug Grid
+
+Tool for easy debugging of grids.
+*/
+
+.debug-grid {
+  @include outer-padding;
+  @include fixed;
+  pointer-events: none;
+  z-index: 9999999;
+  display: none;
+}
+
+.debug-grid__inner {
+  @include max-width;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), 1fr);
+  grid-column-gap: var(--grid-gutter);
+}
+
+.debug-grid__column {
+  background-color: cyan;
+  opacity: 0.15;
+}
+
+// ---------------------------------------------------------------
+// State - Is Visible
+// ---------------------------------------------------------------
+
+.debug-grid.is-visible {
+  display: block;
+}

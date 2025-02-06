@@ -1,0 +1,41 @@
+@use 'sass:math';
+
+/*
+Grid
+
+Helpers for working with grid units
+*/
+
+@function grid-width($cols, $modifier, $parent-cols: var(--grid-columns)) {
+  $each-column: calc(
+    (100% - (#{$parent-cols} - 1) * var(--grid-gutter)) / #{$parent-cols}
+  );
+
+  // Modify the value
+  $modifier-space: 0px;
+  @if $modifier == 'wide' {
+    $modifier-space: var(--grid-gutter);
+  }
+  @if $modifier == 'narrow' {
+    $modifier-space: calc(var(--grid-gutter) * -1);
+  }
+
+  $width: calc(
+    #{$each-column} * #{$cols} + (#{$cols - 1}) * var(--grid-gutter) + #{$modifier-space}
+  );
+
+  @return $width;
+}
+
+@function grid-span($cols, $modifier: null, $of: null) {
+  @if $modifier and $of {
+    @error 'grid-span() cannot combine $modifier with $of';
+  }
+
+  @if $of {
+    // TODO: Percentage-based gutters currently don't work with $of
+    @return grid-width($cols, $modifier, $of);
+  } @else {
+    @return grid-width($cols, $modifier);
+  }
+}

@@ -1,0 +1,27 @@
+dateModified: 1738865377
+email:
+  fromEmail: brian@pixelandtonic.com
+  fromName: 'Vite Test'
+  transportType: craft\mail\transportadapters\Sendmail
+meta:
+  __names__:
+    09feb30b-590f-4389-b6b4-8f10505991ca: 'Vite Test' # Vite Test
+    8944f82a-b403-42d1-81d2-3e6f900af0ce: 'Vite Test' # Vite Test
+plugins:
+  seomatic:
+    edition: standard
+    enabled: true
+    schemaVersion: 3.0.12
+system:
+  edition: solo
+  live: true
+  name: 'Vite Test'
+  schemaVersion: 5.6.0.2
+  timeZone: America/Los_Angeles
+users:
+  allowPublicRegistration: false
+  defaultGroup: null
+  photoSubpath: null
+  photoVolumeUid: null
+  require2fa: false
+  requireEmailVerification: true

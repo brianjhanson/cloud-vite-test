@@ -1,0 +1,26 @@
+{# =============================================================== #}
+{# Video
+{# =============================================================== #}
+{#
+  {% include '_partials/video' with {
+    url: '',
+    posterAsset: craft.assets.filename('*.jpg').orderBy('RAND()').one(),
+  } only %}
+#}
+
+{% import '_macros/image' as image %}
+
+<video
+  class="video"
+  data-module-video
+  {% if posterAsset ??? null %}
+  poster="{{ image.imgUrl(posterAsset, { transform: 'scale' }, 50) }}"
+  {% endif %}
+  preload="auto"
+  autoplay
+  muted
+  loop
+  playsinline
+>
+  <source src="{{ url }}" type="video/mp4">
+</video>

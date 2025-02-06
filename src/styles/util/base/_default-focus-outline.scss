@@ -1,0 +1,11 @@
+/*
+Default Focus Outline
+
+Restores the default browser focus outline ring.
+*/
+
+@mixin default-focus-outline {
+  outline: 5px auto Highlight;
+  /* stylelint-disable-next-line */
+  outline: 5px auto -webkit-focus-ring-color;
+}

@@ -1,0 +1,23 @@
+/*
+Slider - Example
+
+Basic example of slider. Rename and reuse.
+*/
+
+.slider-example {
+  @include hide-splide-slides-js(slider-example);
+  @include splide-number-pagination;
+  @include splide-arrows;
+}
+
+.slider-example__slide {
+  display: flex;
+  flex-direction: column;
+
+  > * {
+    flex: 1 1 auto;
+  }
+}
+
+.slider-example__item {
+}

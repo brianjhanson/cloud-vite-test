@@ -1,0 +1,10 @@
+/*
+Not Selectable
+
+Prevents selection of text
+*/
+
+@mixin not-selectable {
+  -webkit-touch-callout: none;
+  user-select: none;
+}

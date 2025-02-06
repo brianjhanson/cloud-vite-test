@@ -1,0 +1,9 @@
+/*
+Debug Border
+
+Adds a colored border around elements for debugging layout.
+*/
+
+@mixin debug-border($color: red) {
+  box-shadow: 0 0 0 1px rgba($color, 0.5);
+}

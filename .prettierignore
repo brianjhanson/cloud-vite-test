@@ -1,0 +1,7 @@
+/config/project
+/storage
+/web/cpresources
+/.idea
+/.git
+/.ddev
+composer.lock

@@ -1,0 +1,13 @@
+/*
+Position
+
+Utility for positioning.
+*/
+
+@mixin position($property: absolute, $distance: 0) {
+  position: $property;
+  top: $distance;
+  right: $distance;
+  bottom: $distance;
+  left: $distance;
+}

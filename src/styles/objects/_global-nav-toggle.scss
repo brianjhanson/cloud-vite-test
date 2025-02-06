@@ -1,0 +1,11 @@
+/*
+Global Nav Toggle
+
+Primary navigation for the site.
+*/
+
+.global-nav-toggle {
+  @include reset-input;
+  color: var(--theme-text);
+  padding: 1rem;
+}

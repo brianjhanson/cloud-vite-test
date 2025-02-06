@@ -1,0 +1,64 @@
+{# =============================================================== #}
+{# Blocks
+{# =============================================================== #}
+{#
+Consolidates the output of blocks between manually-created blocks and those from a matrix field.
+
+Each item in `groups` can be either an array of manual block objects, or an object
+containing an element/entry and the handle of a matrix field on that element/entry.
+
+{% include '_partials/blocks' with {
+  groups: [
+    [
+      {
+        handle: 'my-block',
+        block: {},
+      },
+      {
+        handle: 'another-block',
+        block: {},
+      },
+    ],
+    {
+      element: entry,
+      field: 'pageContent',
+    }
+  ],
+} %}
+#}
+
+{% set allBlocks = [] %}
+
+{% for group in groups %}
+  {% if group.field ??? null %}
+    {# Matrix Blocks #}
+    {% set field = group.field ?? 'pageContent' %}
+    {% set element = group.element ?? entry ?? null %}
+    {% if element %}
+      {% set blocks = element[field] ??? null %}
+      {% if blocks %}
+        {% set matrixBlocks = blocks.collect() | map((block, idx) => {
+          handle: block.type.handle,
+          entry: entry ??? category ??? null,
+          block: block,
+          id: field == 'pageContent' and idx == 0 ? 'first-content',
+        }) %}
+        {% set allBlocks = allBlocks | merge(matrixBlocks) %}
+      {% endif %}
+    {% endif %}
+  {% else %}
+    {# Manual Blocks #}
+    {% set allBlocks = allBlocks | merge(group) %}
+  {% endif %}
+{% endfor %}
+
+{# Output blocks #}
+{% for block in allBlocks %}
+  {% if block and block.handle %}
+    {% include '_partials/block' with block | merge({
+      previousBlock: allBlocks[loop.index0 - 1] ??? null,
+      nextBlock: allBlocks[loop.index0 + 1] ??? null,
+      debug: debug ?? false,
+    }) only %}
+  {% endif %}
+{% endfor %}

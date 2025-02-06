@@ -1,0 +1,27 @@
+{# =============================================================== #}
+{# Theme
+{# =============================================================== #}
+{#
+{% import '_macros/button' as button %}
+#}
+
+
+{# ------------------------------------------------------------------ #}
+{# Class For Entry
+{# ------------------------------------------------------------------ #}
+{#
+{% import '_macros/theme' as theme %}
+{{ theme.classForEntry(entry) }}
+
+Returns a classname based on the theme for a given entry.
+#}
+
+{%- macro classForEntry(entry) -%}
+{% if entry.section.handle ??? null in [
+
+] %}
+h-theme-dark
+{% else %}
+h-theme-light
+{% endif %}
+{%- endmacro -%}

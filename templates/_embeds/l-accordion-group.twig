@@ -1,0 +1,50 @@
+{# =============================================================== #}
+{# Layout - Accordion Group
+{# =============================================================== #}
+{#
+  {% embed '_embeds/l-accordion-group' with {
+    heading: 'My Group Heading',
+    modifiers: [],
+    key: 'my-unique-key',
+  } only %}
+    {% block main %}
+      …
+    {% endblock %}
+  {% endembed %}
+#}
+
+{% set contentKey = key ~ '-content' %}
+
+{% set classes = craft.twig.modifiers('l-accordion-group', modifiers ?? []) %}
+
+<div class="l-accordion-group {{ classes }}" data-module-accordion="{{ key }}">
+  {# Heading #}
+  <h4 class="l-accordion-group__heading">
+    <button
+      type="button"
+      class="l-accordion-group__heading-button"
+      aria-controls="{{ contentKey }}"
+      id="{{ key }}"
+      data-accordion="button"
+    >
+      <span class="l-accordion-group__heading-inner">
+        <span class="l-accordion-group__heading-text">{{ heading }}</span>
+        <span class="l-accordion-group__heading-icon"></span>
+      </span>
+    </button>
+  </h4>
+
+  {# Content #}
+  <div class="l-accordion-group__content"
+       id="{{ contentKey }}"
+       role="region"
+       aria-labelledby="{{ key }}"
+       data-accordion="content"
+  >
+    <div class="l-accordion-group__content-inner" data-accordion="content-inner">
+      <div class="l-accordion-group__content-innermost">
+        {% block main %}{% endblock %}
+      </div>
+    </div>
+  </div>
+</div>

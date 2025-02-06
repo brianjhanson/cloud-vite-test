@@ -1,0 +1,19 @@
+/*
+Styleguide Wrapper
+
+Wraps all contents within the styleguide.
+*/
+
+.styleguide-wrapper {
+}
+
+.styleguide-wrapper__nav {
+}
+
+.styleguide-wrapper__content {
+  @include size(outer, padding);
+
+  > * + * {
+    margin-top: 40px;
+  }
+}

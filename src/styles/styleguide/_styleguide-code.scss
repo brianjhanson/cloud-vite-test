@@ -1,0 +1,25 @@
+/*
+Styleguide Code
+
+A formatted block of code
+*/
+
+.styleguide-code {
+  $styleguide-code-color: #99c9c0;
+  font-family: monospace;
+  font-size: 14px;
+  color: darken($styleguide-code-color, 17);
+  background-color: rgba($styleguide-code-color, 0.15);
+  border-radius: 3px;
+  padding: 15px 17px;
+  cursor: pointer;
+  overflow-x: scroll;
+
+  &:hover {
+    box-shadow: 0 0 0 2px rgba($styleguide-code-color, 0.4);
+  }
+
+  &:active {
+    box-shadow: 0 0 0 2px $styleguide-code-color;
+  }
+}

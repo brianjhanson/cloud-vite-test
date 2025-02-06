@@ -1,0 +1,18 @@
+{# =============================================================== #}
+{# Global Nav Trigger
+{# =============================================================== #}
+{#
+  {% include '_partials/global-nav-toggle' with {
+    label: 'Menu',
+    action: 'open',
+    key: 'my-key',
+  } %}
+#}
+
+<button
+  aria-label="{{ label }}"
+  class="global-nav-toggle global-nav-toggle--{{ action }}"
+  {{ attr(craft.twig.dialogToggleAttr(key)) }}
+>
+  {{ label }}
+</button>

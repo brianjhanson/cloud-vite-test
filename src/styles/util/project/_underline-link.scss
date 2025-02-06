@@ -1,0 +1,22 @@
+/*
+Underline Link
+
+Adds a common underline to link text.
+*/
+
+@mixin underline-link($hover-only: false) {
+  &[href],
+  a[href] {
+    @include underline;
+    @content;
+
+    @if (not $hover-only) {
+      text-decoration-color: currentcolor;
+    }
+
+    &:hover,
+    &:focus-visible {
+      @include underline-hover;
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{# ================================================================== #}
+{# Styleguide: Color
+{# ================================================================== #}
+
+{% extends "styleguide/_layout" %}
+
+{% block styleguideContent %}
+  <h3 class="styleguide-heading">Color</h3>
+
+  <div class="styleguide-color-items">
+    {% for color in [
+      'black',
+      'white',
+    ] %}
+      {% include 'styleguide/_partials/styleguide-color-item' with {
+        name: color
+      } only %}
+    {% endfor %}
+  </div>
+{% endblock %}

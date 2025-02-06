@@ -1,0 +1,110 @@
+/*
+Rich Text
+
+Styling for common HTML text elements
+*/
+
+.rich-text {
+  // Body, Bold + Italic
+
+  strong,
+  b {
+    font-weight: bold;
+  }
+
+  em,
+  i {
+    font-style: italic;
+  }
+
+  // Subscript / Superscript
+
+  sup {
+    font-variant-position: super;
+    top: 0;
+  }
+
+  // Headings
+
+  h2 {
+  }
+
+  h3 {
+  }
+
+  // Links
+
+  a {
+    &:hover {
+      text-decoration: underline;
+      text-underline-offset: 0.1em;
+    }
+  }
+
+  // Lists
+
+  ul,
+  ol {
+    li {
+    }
+
+    li + li,
+    ul {
+      margin-top: 1.2rem;
+    }
+  }
+
+  ul {
+    text-align: left;
+
+    @include media('>=medium') {
+      margin-left: 0;
+    }
+
+    li {
+      padding-left: 3rem;
+      position: relative;
+    }
+
+    li:before {
+      content: '\2022';
+      position: absolute;
+      left: 0;
+    }
+
+    ul {
+      padding-left: 0;
+    }
+
+    ul > li {
+      padding-left: 3rem;
+    }
+
+    ul > li:before {
+      content: '\2013';
+    }
+  }
+
+  ol {
+    list-style: none;
+    counter-reset: ol-counter;
+
+    li {
+      counter-increment: ol-counter;
+      position: relative;
+      padding-left: 3rem;
+    }
+
+    li:before {
+      content: counter(ol-counter) '.';
+      position: absolute;
+      left: 0;
+    }
+  }
+
+  // Common Spacing
+
+  > * + * {
+    margin-top: 3rem;
+  }
+}

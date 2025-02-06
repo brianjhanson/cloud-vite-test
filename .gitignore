@@ -1,0 +1,42 @@
+# Craft 3
+# ---------------------------
+/templates/_svg/**/*
+/templates/_partials/vite.twig
+/src/static/images/
+/web/*
+!/web/favicons/
+!/web/fonts/
+!/web/.htaccess
+!/web/index.php
+!/web/*.txt
+!/web/*.png
+!/web/*.ico
+!/web/*.webmanifest
+!/web/*.svg
+!/web/*.xml
+
+# Package Managers
+# ---------------------------
+/vendor/
+/node_modules/
+
+# System
+# ---------------------------
+.DS_Store
+Thumbs.db
+
+# Editors
+# ---------------------------
+*.sublime-project
+*.sublime-workspace
+
+# Temp
+# ---------------------------
+.env
+*.log
+/tmp
+http-client.private.env.json
+
+# Compiled Files
+# ---------------------------
+/dist/

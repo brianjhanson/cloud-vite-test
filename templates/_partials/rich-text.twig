@@ -1,0 +1,15 @@
+{# =============================================================== #}
+{# Rich Text
+{# =============================================================== #}
+{#
+  {% include '_partials/rich-text' with {
+    content: '<p>Nullam id dolor id nibh ultricies vehicula ut id elit. Maecenas sed diam eget risus varius blandit sit amet non magna.<p>',
+    modifiers: [],
+  } only %}
+#}
+
+{% if content ?? null %}
+  <div class="rich-text {{ craft.twig.modifiers('rich-text', modifiers ?? []) }}">
+    {{ content }}
+  </div>
+{% endif %}

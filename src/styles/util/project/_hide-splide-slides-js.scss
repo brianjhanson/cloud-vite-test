@@ -1,0 +1,12 @@
+/*
+Hide Splide Slides
+
+Hides all Splide slides except the first when JS is enableHides all Splide slides except the first when JS is enabled
+*/
+
+@mixin hide-splide-slides-js($name) {
+  .js & .#{$name}__slide:not(:first-child):not(.splide__slide) {
+    position: absolute;
+    opacity: 0;
+  }
+}

@@ -1,0 +1,67 @@
+/*
+Layout - Accordion Group
+
+A combination of content used in an accordion.
+*/
+
+.l-accordion-group {
+}
+
+.l-accordion-group__heading-button {
+  @include reset-input;
+  display: block;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+}
+
+.l-accordion-group__heading-inner {
+  position: relative;
+  display: block;
+}
+
+.l-accordion-group__heading-text {
+}
+
+.l-accordion-group__heading-icon {
+}
+
+.l-accordion-group__content {
+  transition: max-height 0.5s ease(out-expo);
+  overflow: clip;
+}
+
+.l-accordion-group__content-inner {
+  transition: opacity 0.5s;
+}
+
+.l-accordion-group__content-innermost {
+}
+
+// ---------------------------------------------------------------
+// State - Expanding
+// ---------------------------------------------------------------
+
+.js .l-accordion-group__content:not([aria-hidden='false']) {
+  max-height: 0 !important;
+
+  .l-accordion-group__content-inner {
+    opacity: 0;
+  }
+}
+
+.l-accordion-group__heading-button[aria-expanded='true'] {
+  .l-accordion-group__heading-icon {
+  }
+}
+
+// ---------------------------------------------------------------
+// Hover
+// ---------------------------------------------------------------
+
+.l-accordion-group {
+  @include not-touch-hover {
+    & .l-accordion-group__heading-button:not([aria-expanded='true']) {
+    }
+  }
+}

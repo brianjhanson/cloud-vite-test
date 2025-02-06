@@ -1,0 +1,36 @@
+{# =============================================================== #}
+{# Image Video
+{# =============================================================== #}
+{#
+  {% include '_partials/image-video' with {
+    asset: craft.assets.filename('*.jpg').orderBy('RAND()').one(),
+    transform: '16x9',
+    modifiers: ['wipe'],
+  } only %}
+#}
+
+{% set classes = craft.twig.modifiers('image-video', modifiers ?? []) %}
+
+<div class="image-video {{ classes }}" data-module-reveal>
+  <div class="image-video__inner">
+    <div class="image-video__innermost">
+      {# Image #}
+      {% if asset.kind == 'image' %}
+        {% import '_macros/image' as image %}
+        {{ image.get(asset, {
+          transform: transform ?? 'scale',
+          wrapperClasses: ["cover"],
+          lazy: lazy ?? true,
+          size: size ?? null,
+        }) }}
+      {% endif %}
+
+      {# Vimeo #}
+      {% if asset.kind == 'video' %}
+        {% include '_partials/video' with {
+          url: asset.url,
+        } only %}
+      {% endif %}
+    </div>
+  </div>
+</div>

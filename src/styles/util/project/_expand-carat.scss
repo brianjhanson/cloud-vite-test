@@ -1,0 +1,44 @@
+/*
+Expand Carat
+
+Reusable expand/collapse carat with animation.
+*/
+
+@mixin expand-carat {
+  --arrow-segment-width: 0.7rem;
+
+  &:before,
+  &:after {
+    @include pseudo-absolute;
+    width: var(--arrow-segment-width);
+    height: 0.1rem;
+    background-color: var(--theme-text);
+    background-repeat: no-repeat;
+    background-position: center center;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin-block: auto;
+    will-change: transition;
+    transition: transform 0.5s ease(out-expo);
+  }
+
+  &:before {
+    transform: rotate(-45deg) translate(-2px, 0);
+  }
+
+  &:after {
+    right: calc(var(--arrow-segment-width) * 0.7);
+    transform: rotate(45deg) translate(0, 2px);
+  }
+}
+
+@mixin expand-carat-expanded {
+  &:before {
+    transform: rotate(45deg) translate(0, 2px);
+  }
+
+  &:after {
+    transform: rotate(-45deg) translate(-2px, 0px);
+  }
+}

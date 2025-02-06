@@ -1,0 +1,27 @@
+/*
+Social Icon
+
+Social media icon link
+*/
+
+.social-icon {
+  display: block;
+  width: 2.6rem;
+  height: 2.6rem;
+  transition: opacity $transition-hover-color;
+}
+
+.social-icon__inner {
+  display: block;
+  @include responsive-svg(1);
+}
+
+// ---------------------------------------------------------------
+// Link
+// ---------------------------------------------------------------
+
+a.social-icon {
+  @include not-touch-hover {
+    opacity: 0.7;
+  }
+}

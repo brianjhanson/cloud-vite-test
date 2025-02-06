@@ -1,0 +1,169 @@
+{# ================================================================== #}
+{# Image
+{# ================================================================== #}
+{#
+  {% import '_macros/image' as image %}
+#}
+
+
+{# ------------------------------------------------------------------ #}
+{# Get
+{# ------------------------------------------------------------------ #}
+{#
+  {% import '_macros/image' as image %}
+  {{ image.get(asset, {
+    wrapperClasses: ['fade'],
+  }) }}
+
+  Generate a srcset image. Assumes the project is using the Imager-X plugin along with an Imager-X named transforms config file.
+
+  @param asset (asset)                - [required] Craft image asset
+  @param options.transform (string)   - [optional] Determines which transform config to use (should match an option defined in `config/imager-x-transforms.php`)
+  @param options.alt (string)         - [optional] Text for alt tag
+  @param options.lazy (boolean)       - [optional] Native lazy loading
+  @param options.size (string)        - [optional] Determine which sizes attribute should be used
+  @param wrap: (boolean)              - [optional] Whether to wrap the img element in additional markup
+  @param wrapperClasses: (string[])   - [optional] Modifier classes to add to the image wrapper
+#}
+
+{%- macro get(asset, options = {}) -%}
+  {% import _self as image %}
+
+  {# Set some defaults #}
+  {% set defaults = {
+    transform: 'scale',
+    alt: asset.alt ?? '',
+    wrap: true,
+    wrapperClasses: [],
+    lazy: true,
+    size: null,
+  } %}
+
+  {# Merge options with defaults #}
+  {% set options = defaults | merge(options) %}
+
+  {# Create the default image #}
+  {% set img %}
+    <img src="{{ asset.url }}" alt="{{ options.alt }}">
+  {% endset %}
+
+  {# Return raw <img/> if not transformable #}
+  {% if craft.twig.isAssetTransformable(asset) %}
+    {# Use named transform config to help determine the width, height, and aspect ratio of the transformed image #}
+    {% set namedTransform = craft.imagerx.getNamedTransform(options.transform)  %}
+    {% set assetWidth = 200 %} {# We can safely hard code a value here—which simplifies things a bit—because the ratio and height below are dynamically generated #}
+    {% set assetRatio = asset.height / asset.width %}
+    {% set assetHeight = (namedTransform.defaults.ratio ??? null) ? ((1/namedTransform.defaults.ratio) * assetWidth) : (assetRatio * assetWidth) %}
+
+    {# Generate transformed images #}
+    {% set transformedImages = craft.imagerx.transformImage(asset, options.transform) %}
+
+    {# Output images #}
+    {% set img %}
+      <img
+        alt="{{ options.alt }}"
+        width="{{ assetWidth }}"
+        height="{{ assetHeight }}"
+        srcset="{{ craft.imager.srcset(transformedImages) }}"
+        style="object-position: {{ asset.getFocalPoint().x * 100 }}% {{ asset.getFocalPoint().y * 100 }}%;"
+        decoding="async"
+
+        {# Lazy loading #}
+        {% if options.lazy %}
+          loading="lazy"
+        {% endif %}
+
+        {# Get the sizes attribute #}
+        {{ _self.getSizes(options.size) }}
+      >
+    {% endset %}
+  {% endif %}
+
+  {# Return the element #}
+  {% if options.wrap %}
+    {{ _self.wrap(img, options.wrapperClasses) | raw  }}
+  {% else %}
+    {{ img | raw }}
+  {% endif %}
+{%- endmacro -%}
+
+
+{# ------------------------------------------------------------------ #}
+{# Get Sizes
+{# ------------------------------------------------------------------ #}
+{#
+  {{ _self.getSizes(size) }}
+
+  Returns the "sizes" atrribute for an image
+
+  @param size (string)     - [optional] Determine which sizes attribute should be used
+#}
+
+{% macro getSizes(size = 'full') %}
+  {% switch size %}
+    {% case 'full' %}
+      sizes="100vw"
+
+    {% case 'half' %}
+      sizes="(min-width: 768px) 50vw,
+      100vw"
+
+    {% case 'third' %}
+      sizes="(min-width: 1440px) 33vw,
+      (min-width: 768px) 50vw,
+      100vw"
+  {% endswitch %}
+{% endmacro %}
+
+
+{# ------------------------------------------------------------------ #}
+{# URL
+{# ------------------------------------------------------------------ #}
+{#
+  {% import '_macros/image' as image %}
+  {{ image.url(asset, '1x1', 2) }}
+
+  Returns the URL of a single transformed image
+
+  @param transform (string)     - [optional] Determines which transform config to use (should match an option defined in `config/imager-x-transforms.php`)
+  @param transformIdx (string)  - [optional] Determines which url from the array of generated images to return
+#}
+
+{%- macro url(asset, transform = 'scale', transformIdx = 1) -%}
+  {# Return original URL if not transformable #}
+  {% if not craft.twig.isAssetTransformable(asset) %}
+    {{ asset.url }}
+  {% endif %}
+
+  {# Generate transformed images #}
+  {% set transformedImage = craft.imagerx.transformImage(asset, transform) %}
+
+  {# Give me that URL #}
+  {{  transformedImage[transformIdx].url }}
+{%- endmacro -%}
+
+
+{# ------------------------------------------------------------------ #}
+{# Wrap Image
+{# ------------------------------------------------------------------ #}
+{#
+{{ _self.wrap(image, classes) }}
+
+Wraps an image in common markup.
+
+@param image (HTML)                - [required] The HTML markup (e.g. <img>, <picture>, etc) to wrap
+@param classes (string[])          - [optional] Array of classes to add to image
+#}
+
+{%- macro wrap(image, classes = []) -%}
+  {% import _self as image %}
+  {% set classes = craft.twig.modifiers('image', classes ?? []) %}
+  {% set wrappedImg %}
+    <div class="image {{ classes }}" data-module-reveal>
+      <div class="image__inner">
+        {{ image | raw }}
+      </div>
+    </div>
+  {% endset %}
+  {{ wrappedImg }}
+{%- endmacro -%}

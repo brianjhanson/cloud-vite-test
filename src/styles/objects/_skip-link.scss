@@ -1,0 +1,33 @@
+/*
+Skip Link
+
+Accessibility-focused link for skipping to the main content of the page.
+*/
+
+.skip-link {
+  padding: 1em;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+  border: 3px solid black;
+  color: black;
+  background-color: white;
+
+  &:not(:focus) {
+    @include hide-visually;
+  }
+
+  &:focus {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10000;
+  }
+
+  &:focus:not(:hover) {
+    outline: 1px dotted;
+    outline-offset: -0.5em;
+  }
+}

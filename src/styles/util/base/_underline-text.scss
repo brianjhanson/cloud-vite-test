@@ -1,0 +1,23 @@
+/*
+Underline Text
+
+Assists with adding flexible, animatable underlines to text.
+*/
+
+@mixin underline-text(
+  $color: currentColor,
+  $size: 1px,
+  $transition: 0.4s ease(out-expo)
+) {
+  background-image: linear-gradient($color, $color);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 $size;
+  transition: $transition;
+  transition-property: background-size;
+  display: inline;
+}
+
+@mixin underline-text-reveal($size: 1px) {
+  background-size: 100% $size;
+}

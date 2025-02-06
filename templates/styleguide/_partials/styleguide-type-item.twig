@@ -1,0 +1,19 @@
+{# =============================================================== #}
+{# Styleguide Type Item
+{# =============================================================== #}
+{#
+  {% include 'styleguide/_partials/styleguide-type-item' with {
+    name: 'heading-a'
+  } only %}
+#}
+
+<div class="styleguide-type-item">
+  <div class="styleguide-type-item__code">
+    {% include 'styleguide/_partials/styleguide-code' with {
+      code: "@include type-style(#{ name });"
+    } only %}
+  </div>
+  <div class="styleguide-type-item__example">
+    <p class="h-type-{{ name }}">The quick brown fox jumped over the lazy dog.</p>
+  </div>
+</div>

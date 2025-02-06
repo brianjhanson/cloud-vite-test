@@ -1,0 +1,51 @@
+/*
+Scroll Animation
+
+Helpers for creating scroll animations
+
+.parent {
+  @include scroll-animation-timeline(unique-identifier);
+}
+
+.parent .child {
+  @include scroll-animation(
+    unique-identifier,
+    anim-my-animation,
+    exit-crossing 0% exit-crossing 100%,
+    linear
+  );
+}
+
+@keyframes anim-my-animation {
+  0% {
+    transform: translateY(0.01px);
+  }
+
+  100% {
+    transform: translateY(-8rem);
+  }
+}
+*/
+
+@mixin scroll-animation-timeline($timeline-name: reveal-timeline) {
+  view-timeline-name: --#{$timeline-name};
+  view-timeline-axis: block;
+}
+
+@mixin scroll-animation(
+  $timeline-name: reveal-timeline,
+  $animation-name: my-animation,
+  $animation-range: entry-crossing 0% entry-crossing 100%,
+  $animation-ease: ease(out-quad)
+) {
+  @supports (view-timeline-axis: block) {
+    $prefers-reduced-motion: no-preference;
+    @media (prefers-reduced-motion: $prefers-reduced-motion) {
+      animation: $animation-ease $animation-name both;
+      animation-timeline: --#{$timeline-name};
+
+      // Tweak range when effect should run
+      animation-range: $animation-range;
+    }
+  }
+}

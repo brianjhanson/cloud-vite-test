@@ -1,0 +1,21 @@
+/*
+Link Simple
+
+Applies common styling to links
+*/
+
+@mixin link-simple($hover-opacity: 1, $hover-color: null) {
+  @include focus;
+  transition: $transition-hover-color;
+  transition-property: opacity, color;
+
+  &:hover {
+    @if $hover-opacity {
+      opacity: $hover-opacity;
+    }
+
+    @if $hover-color {
+      color: $hover-color;
+    }
+  }
+}

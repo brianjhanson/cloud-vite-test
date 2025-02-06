@@ -1,0 +1,17 @@
+/*
+Styleguide Headings
+
+Section headings for a styleguide section.
+*/
+
+.styleguide-heading {
+  padding-top: 10px;
+  font-size: 26px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-top: 1px black solid;
+
+  &:not(:first-child) {
+    margin-top: 80px;
+  }
+}

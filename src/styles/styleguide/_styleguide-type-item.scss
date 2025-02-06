@@ -1,0 +1,28 @@
+/*
+Styleguide Type Item
+
+An individual styleguide item for typography
+*/
+
+.styleguide-type-item {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.styleguide-type-item__code,
+.styleguide-type-item__example {
+  margin-top: 20px;
+}
+
+.styleguide-type-item__code {
+  width: 100%;
+
+  @include media('>=medium') {
+    width: 300px;
+    margin-right: 40px;
+  }
+}
+
+.styleguide-type-item__example {
+  flex: 1;
+}

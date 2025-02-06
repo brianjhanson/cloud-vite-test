@@ -1,0 +1,28 @@
+{# =============================================================== #}
+{# Social Icon
+{# =============================================================== #}
+{#
+  {% include '_partials/social-icon' with {
+    site: 'facebook',
+    url: 'https://www.facebook.com',
+    link: true,
+    ariaLabel: 'Share on'
+  } only %}
+#}
+
+{% set isLink = link ?? true %}
+{% set el = isLink ? 'a' : 'span' %}
+
+<{{ el }}
+  class="social-icon {{ classes ?? '' }}"
+  {% if isLink %}
+    href="{{ url }}"
+    target="_blank"
+    aria-label="{{ ariaLabel ??? 'Visit us on' }} {{ site | title }}"
+  {% endif %}
+>
+  <span class="social-icon__inner">
+  {% import '_macros/svg' as svg %}
+    {{ svg.use(site) }}
+  </span>
+</{{ el }}>

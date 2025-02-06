@@ -1,0 +1,19 @@
+{# ================================================================== #}
+{# Homepage
+{# ================================================================== #}
+
+{% extends "_layout" %}
+
+{% block content %}
+  <h1>Homepage</h1>
+
+  {# Matrix Page Content #}
+  {# Uncomment if/when you have a `pageContent` matrix field for the entry #}
+  {#
+  {% include '_partials/blocks' with {
+    groups: [
+      { field: 'pageContent' },
+    ],
+  } %}
+  #}
+{% endblock %}

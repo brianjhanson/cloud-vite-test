@@ -1,0 +1,99 @@
+/*
+Button - Basic
+
+A flexible, reusable button.
+*/
+
+.button-basic {
+  --transition: 0.6s #{ease(out-expo)};
+  position: relative;
+  display: inline-block;
+}
+
+.button-basic__inner {
+  @include reset-input;
+  display: block;
+  cursor: pointer;
+  position: relative;
+  border: 1px solid var(--theme-text);
+  background: none;
+  z-index: 1;
+  text-align: center;
+  width: 100%;
+}
+
+.button-basic__text {
+  color: var(--theme-text);
+  transition: var(--transition);
+  transition-property: color;
+  will-change: color;
+  padding: 1rem 1.6rem 0.9rem;
+  line-height: 1;
+}
+
+.button-basic__bg {
+  @include absolute;
+  z-index: 0;
+  overflow: clip;
+
+  &:before {
+    @include pseudo-absolute;
+    top: 0;
+    right: -0.1rem;
+    bottom: 0;
+    left: -0.1rem;
+    background-color: var(--theme-text);
+    transition: var(--transition);
+    transition-property: opacity, transform;
+    transform: scaleX(0);
+    transform-origin: 100% 100%;
+  }
+}
+
+.button-basic__graphic {
+  position: absolute;
+  color: black;
+  transition: var(--transition);
+  transition-property: transform, color;
+
+  &,
+  & svg {
+    width: 2rem;
+    height: 2rem;
+    right: 2rem;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+  }
+}
+
+// ---------------------------------------------------------------
+// Hover / Focus Mixin
+// ---------------------------------------------------------------
+
+@mixin button-hover($selector) {
+  #{$selector} {
+    @include not-touch {
+      &:has(#{$selector}__inner:hover, #{$selector}__inner:focus),
+      a:hover:has(&),
+      a:focus:has(&) {
+        @content;
+      }
+    }
+  }
+}
+
+// ---------------------------------------------------------------
+// State - Focus / Hover / Active
+// ---------------------------------------------------------------
+
+@include button-hover('.button-basic') {
+  .button-basic__text {
+    transform: translateY(calc(-30% - 1px));
+    opacity: 0;
+  }
+
+  .button-basic__text--duplicate {
+    transform: translateY(0);
+  }
+}

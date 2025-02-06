@@ -1,0 +1,26 @@
+{# =============================================================== #}
+{# Styleguide Items
+{# =============================================================== #}
+{#
+  {% include 'styleguide/_partials/styleguide-items' with {
+    items: {
+      'Default': {
+        code: "
+        {% include '_partials/foo' with {
+          someProp: 'blah'
+        } %}
+        ",
+        modifiers: ['dark'],
+      },
+      …
+    }
+  } only %}
+#}
+
+{% for key, item in items %}
+  {% include 'styleguide/_partials/styleguide-item' with {
+    name: key,
+    code: item.code,
+    modifiers: item.modifiers ?? null
+  } only %}
+{% endfor %}

@@ -1,0 +1,19 @@
+/*
+Styleguide Color Item
+
+Represents an individual color as a styleguide swatch.
+*/
+
+.styleguide-color-item {
+}
+
+.styleguide-color-item__example {
+  height: 0;
+  padding-bottom: 100%;
+  border-radius: 6px;
+  box-shadow: 0 0 0 1px rgba(black, 0.07) inset;
+}
+
+.styleguide-color-item__code {
+  margin-top: 15px;
+}

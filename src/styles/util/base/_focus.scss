@@ -1,0 +1,17 @@
+/*
+Focus
+
+Define focus styles for a variety of use cases
+*/
+
+@mixin focus() {
+  // When element receives focus via a keyboard
+  &:focus-visible {
+    @content;
+  }
+
+  // When element receives focus via a mouse
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
+}

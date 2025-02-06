@@ -1,0 +1,11 @@
+/*
+Splide Hide Arrows
+
+Hides Splide arrows
+*/
+
+@mixin splide-hide-arrows {
+  .splide__arrows {
+    display: none;
+  }
+}

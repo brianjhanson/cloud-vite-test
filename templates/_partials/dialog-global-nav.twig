@@ -1,0 +1,25 @@
+{# =============================================================== #}
+{# Dialog Mobile Nav
+{# =============================================================== #}
+{#
+  {% include '_partials/dialog-global-nav' with {
+    key: 'dialog-global-nav',
+  } only %}
+#}
+
+{% embed '_embeds/l-dialog' with {
+  key: key,
+  includeClose: true,
+  modifiers: ['global-nav'],
+  closeDelay: 800,
+} %}
+  {% block content %}
+    <div class="dialog-global-nav">
+      {# Main #}
+      <div class="dialog-global-nav__main">
+        {# TODO: Add global nav content #}
+      </div>
+    </div>
+  {% endblock %}
+{% endembed %}
+

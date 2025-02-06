@@ -1,0 +1,52 @@
+{# ================================================================== #}
+{# Styleguide: Layout
+{# ================================================================== #}
+
+{% extends "_layout" %}
+
+{% do seomatic.meta.robots('none') %}
+
+{% set sections = [
+  'Typography',
+  'Color',
+] %}
+
+{% block content %}
+  <section class="styleguide-wrapper">
+    <div class="styleguide-wrapper__nav">
+      {% include 'styleguide/_partials/styleguide-nav' with {
+        sections: sections
+      } only %}
+    </div>
+
+    <div class="styleguide-wrapper__content">
+      {% block styleguideContent %}{% endblock %}
+    </div>
+  </section>
+
+  <link rel="stylesheet" href="https://unpkg.com/notie@4.3.1/dist/notie.min.css">
+  <script src="https://unpkg.com/clipboard@2.0.8/dist/clipboard.min.js"></script>
+  <script src="https://unpkg.com/notie@4.3.1/dist/notie.min.js"></script>
+
+  <style>
+    .notie-alert { z-index: 9999; }
+  </style>
+
+  <script>
+    if (ClipboardJS.isSupported()) {
+      var clipboard = new ClipboardJS('.js-copy-to-clipboard', {
+        target: function(trigger) {
+          return trigger;
+        }
+      });
+
+      clipboard.on('success', function() {
+        notie.alert({
+          text: 'The code has been copied to your clipboard.',
+          time: 1
+        });
+      });
+    }
+  </script>
+{% endblock %}
+

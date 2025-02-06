@@ -1,0 +1,52 @@
+/*
+Splide Arrows Inset
+
+Basic styling for splide slider arrows.
+*/
+
+@mixin splide-arrows {
+  .splide__arrows {
+    @include size(outer, left right top bottom);
+    z-index: 1;
+    pointer-events: none;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+
+    @include media('>=medium') {
+    }
+  }
+
+  .splide__arrow {
+    @include reset-input;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: auto;
+    cursor: pointer;
+    transition: opacity $transition-hover-color;
+    opacity: 0.4;
+
+    &,
+    svg {
+      width: 5rem;
+      height: 5rem;
+    }
+
+    @include svg-parts {
+      fill: var(--theme-text);
+      transition: fill $transition-hover-color;
+    }
+
+    &:hover,
+    &:focus-visible {
+      opacity: 1;
+    }
+  }
+
+  .splide__arrow--prev {
+    svg {
+      transform: rotate(180deg);
+    }
+  }
+}

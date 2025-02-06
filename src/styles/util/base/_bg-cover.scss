@@ -1,0 +1,15 @@
+/*
+Background Color
+
+Force Image to Cover Background of it's Parent
+*/
+
+@mixin bg-cover($fit: cover, $position: 50% 50%) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: $fit;
+  object-position: $position;
+}

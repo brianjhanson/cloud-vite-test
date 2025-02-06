@@ -1,0 +1,26 @@
+/*
+On Parent Event
+
+Adds hover, active, and focus events when a parent is engaged.
+
+Requires that a `.h-trigger-child-events` class is added to the hoverable parent.
+*/
+
+@mixin on-parent-event($self: true) {
+  @if $self {
+    &:hover,
+    &:active,
+    &:focus,
+    .h-trigger-child-events:hover &,
+    .h-trigger-child-events:active &,
+    .h-trigger-child-events:focus & {
+      @content;
+    }
+  } @else {
+    .h-trigger-child-events:hover &,
+    .h-trigger-child-events:active &,
+    .h-trigger-child-events:focus & {
+      @content;
+    }
+  }
+}

@@ -1,0 +1,51 @@
+/*
+Form Common
+
+Common restyling for form elements
+*/
+
+@mixin form-common-label {
+  color: var(--theme-text);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+@mixin form-common-input {
+  @include reset-input;
+  border: 1px solid var(--theme-text);
+  background-color: var(--theme-bg);
+  color: var(--theme-text);
+  line-height: 4.2rem;
+  height: 4.2rem;
+  padding: 0.2rem 1rem;
+  width: 100%;
+  transition: 0.5s ease(out-expo);
+  transition-property: border-color;
+  will-change: border-color;
+  @include placeholder-color(var(--theme-placeholder-text));
+
+  @include media('<medium') {
+    font-size: 1.6rem; // Prevent viewport zooming on iOS
+  }
+
+  &:focus {
+    outline: none;
+    border-color: rgba(black, 0.5);
+  }
+}
+
+@mixin form-common-textarea {
+  @include form-common-input;
+  padding-block: 1.5rem;
+  line-height: 1.4;
+  min-height: 12rem;
+}
+
+@mixin form-common-errors {
+  color: red;
+
+  > * {
+    display: inline-block;
+    margin-top: 0.9rem;
+  }
+}

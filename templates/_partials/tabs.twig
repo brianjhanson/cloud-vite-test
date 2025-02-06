@@ -1,0 +1,56 @@
+{# =============================================================== #}
+{# Tabs
+{# =============================================================== #}
+{#
+  {% include '_partials/tabs' with {
+    label: 'Important content',
+    key: 'my-unique-key',
+    tabs: [
+       {
+         label: 'Tab Title',
+         content: '<p>Some content for the tab</p>',
+       },
+    ],
+  } only %}
+#}
+
+{% set classes = craft.twig.modifiers('tabs', modifiers ?? []) %}
+
+<div class="tabs {{ classes }}" data-module-tabs="{{ key }}">
+  <div
+    role="tablist"
+    aria-label="{{ label }}"
+    class="tabs__tablist"
+  >
+    {% for tab in tabs %}
+      {% set id = tab.label | kebab %}
+      <button
+        id="tab-{{ id }}"
+        type="button"
+        role="tab"
+        aria-controls="tabpanel-{{ id }}"
+        {% if loop.first %}
+          aria-selected="true"
+        {% endif %}
+      >
+        <span class="focus">{{ tab.label }}</span>
+      </button>
+    {% endfor %}
+  </div>
+
+  {% for tab in tabs %}
+    {% set id = tab.label | kebab %}
+    <div
+      id="tabpanel-{{ id }}"
+      role="tabpanel"
+      tabindex="0"
+      aria-labelledby="tab-{{ id }}"
+      {% if not loop.first %}
+        class="is-hidden"
+      {% endif %}
+    >
+      {{ tab.content }}
+    </div>
+  {% endfor %}
+</div>
+

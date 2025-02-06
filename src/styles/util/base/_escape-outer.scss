@@ -1,0 +1,19 @@
+/*
+Escape Outer
+
+Escape the common outer spacing for the site
+*/
+
+@mixin escape-outer($prop: left, $outer-amount: outer) {
+  $outer-calc: var(--size-#{$outer-amount});
+
+  @include media('<max') {
+    #{$prop}: calc(#{$outer-calc} * -1);
+  }
+
+  @include media('>=max') {
+    /* There's currently a bug in stylelint when processing Sass variables within interpolation */
+    /* stylelint-disable function-calc-no-unspaced-operator */
+    #{$prop}: calc(#{outer-padding-max(-1)});
+  }
+}

@@ -1,0 +1,45 @@
+{# =============================================================== #}
+{# Text Set
+{# =============================================================== #}
+{#
+  {% set footer %}
+    <p>Footer text</p>
+  {% endset %}
+
+  {% include '_partials/text-set' with {
+    subhead: 'Subhead',
+    heading: 'Lorem Ipsum Dolor',
+    text: '<p>Hello world</p>',
+    footer: footer,
+    modifiers: ['large'],
+  } only %}
+#}
+
+{% set classes = craft.twig.modifiers('text-set', modifiers ?? []) %}
+
+<div class="text-set {{ classes }}">
+  {# Subhead #}
+  <p class="text-set__subhead" data-module-reveal="up">{{ subhead }}</p>
+
+  {# Heading #}
+  <h2
+    class="text-set__heading"
+    data-module-reveal
+  >{{ heading | nl2br }}</h2>
+
+  {# Text #}
+  {% if text ??? null %}
+    <div class="text-set__text" data-module-reveal="up">
+      {% include '_partials/rich-text' with {
+        content: text,
+      } only %}
+    </div>
+  {% endif %}
+
+  {# Footer #}
+  {% if footer ??? null %}
+    <div class="text-set__footer" data-module-reveal="up">
+      {{ footer }}
+    </div>
+  {% endif %}
+</div>

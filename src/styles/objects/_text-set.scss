@@ -1,0 +1,47 @@
+/*
+Text Set
+
+Common combinations of text.
+*/
+
+.text-set {
+  color: var(--theme-text);
+}
+
+.text-set__subhead {
+}
+
+.text-set__heading {
+}
+
+.text-set__text {
+  @include size(32, margin-top);
+}
+
+.text-set__footer {
+  @include size(32, margin-top);
+}
+
+// ---------------------------------------------------------------
+// Modifier - Large
+// ---------------------------------------------------------------
+
+.text-set--large {
+  .text-set__heading {
+    @include size(32, margin-top);
+  }
+}
+
+// ---------------------------------------------------------------
+// Reveal
+// ---------------------------------------------------------------
+
+.js .text-set {
+  $base-transition-delay: 0.2s;
+
+  @for $idx from 1 through 10 {
+    > *:nth-child(#{$idx}) {
+      transition-delay: 0.3s * $idx + $base-transition-delay;
+    }
+  }
+}

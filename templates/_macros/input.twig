@@ -1,0 +1,196 @@
+{# =============================================================== #}
+{# Input
+{# =============================================================== #}
+{#
+{% import '_macros/input' as input %}
+#}
+
+
+{# ------------------------------------------------------------------ #}
+{# Input: Text
+{# ------------------------------------------------------------------ #}
+{#
+{% import '_macros/input' as input %}
+{{ input.text({
+  name: 'email',
+  label: 'Email',
+  value: '',
+  type: 'text',
+  placeholder: 'someone@gmail.com',
+  autocomplete: false,
+  errors: ['Some error message'],
+  disabled: false,
+  required: false,
+}) }}
+
+Renders a text input. See `_macros/bits.twig` for additional options.
+#}
+
+{%- macro text(options = {}) -%}
+  {% import '_macros/bits' as bits %}
+
+  {% set defaults = {
+    mainClass: 'input-text',
+  } %}
+  {% set options = defaults | merge(options) %}
+  {{ bits.text(options) }}
+{%- endmacro -%}
+
+
+{# ------------------------------------------------------------------ #}
+{# Input: Textarea
+{# ------------------------------------------------------------------ #}
+{#
+{% import '_macros/input' as input %}
+{{ input.textarea({
+    name: 'comment',
+    label: 'Comment',
+    value: '',
+    placeholder: 'The quick brown fox jumped over the lazy dog',
+    autocomplete: false,
+    errors: ['Some error message'],
+    disabled: false,
+    required: false,
+}) }}
+
+Renders a textarea element. See `_macros/bits.twig` for additional options.
+#}
+
+{%- macro textarea(options = {}) -%}
+  {% import '_macros/bits' as bits %}
+
+  {% set defaults = {
+    mainClass: 'input-text',
+    classes: 'input-text--textarea',
+  } %}
+  {% set options = defaults | merge(options) %}
+  {{ bits.textarea(options) }}
+{%- endmacro -%}
+
+
+{# ------------------------------------------------------------------ #}
+{# Input: Checkbox
+{# ------------------------------------------------------------------ #}
+{#
+{% import '_macros/input' as input %}
+{{ input.checkbox({
+    value: 'foo',
+    name: 'options',
+    label: 'Options',
+    required: false,
+    items: [
+      {
+        label: 'Foo',
+        value: 'foo',
+      }
+    ],
+}) }}
+
+Renders a checkbox input. See `_macros/bits.twig` for additional options.
+#}
+
+{%- macro checkbox(options = {}) -%}
+  {% import '_macros/bits' as bits %}
+
+  {% set unselectedSvg %}
+
+  {% endset %}
+
+  {% set selectedSvg %}
+    {% import '_macros/svg' as svg %}
+    {{ svg.use('checkbox-selected') }}
+  {% endset %}
+
+  {% set defaults = {
+    mainClass: 'input-selectable',
+    classes: 'input-selectable--checkbox',
+    type: 'checkbox',
+    unselectedSvg: unselectedSvg ??? null,
+    selectedSvg: selectedSvg ??? null,
+  } %}
+  {% set options = defaults | merge(options) %}
+  {{ bits.selectable(options) }}
+{%- endmacro -%}
+
+
+{# ------------------------------------------------------------------ #}
+{# Input: Radio
+{# ------------------------------------------------------------------ #}
+{#
+{% import '_macros/input' as input %}
+{{ input.radio({
+    value: 'foo',
+    name: 'options',
+    label: 'Options',
+    required: false,
+    items: [
+      {
+        label: 'Foo',
+        value: 'foo',
+      }
+    ],
+}) }}
+
+Renders a radio input. See `_macros/bits.twig` for additional options.
+#}
+
+{%- macro radio(options = {}) -%}
+  {% import '_macros/bits' as bits %}
+
+  {% set unselectedSvg %}
+
+  {% endset %}
+
+  {% set selectedSvg %}
+
+  {% endset %}
+
+  {% set defaults = {
+    mainClass: 'input-selectable',
+    classes: 'input-selectable--radio',
+    type: 'radio',
+    unselectedSvg: unselectedSvg ??? null,
+    selectedSvg: selectedSvg ??? null,
+  } %}
+  {% set options = defaults | merge(options) %}
+  {{ bits.selectable(options) }}
+{%- endmacro -%}
+
+
+{# ------------------------------------------------------------------ #}
+{# Input: Select
+{# ------------------------------------------------------------------ #}
+{#
+{% import '_macros/input' as input %}
+{{ input.select({
+  name: 'foods',
+  label: 'Foods',
+  value: 'pizza',
+  items: [
+    {
+      label: 'Pizza',
+      value: 'pizza',
+    },
+    {
+      label: 'Burger',
+      value: 'burger',
+    },
+    {
+      label: 'Taco',
+      value: 'taco',
+    }
+  ],
+}) }}
+
+Renders a <select> input. See `_macros/bits.twig` for additional options.
+#}
+
+{%- macro select(options = {}) -%}
+  {% import '_macros/bits' as bits %}
+
+  {% set defaults = {
+    mainClass: 'input-select',
+  } %}
+  {% set options = defaults | merge(options) %}
+  {{ bits.select(options) }}
+{%- endmacro -%}

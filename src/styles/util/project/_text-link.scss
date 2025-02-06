@@ -1,0 +1,17 @@
+/*
+Text link
+
+Adds common link styling
+*/
+
+@mixin text-link {
+  transition: $transition-hover-color;
+  transition-property: text-decoration-color, opacity, color;
+  text-decoration: underline;
+  text-underline-offset: 0.4em;
+  text-decoration-color: transparent;
+
+  @include not-touch-hover {
+    text-decoration-color: currentcolor;
+  }
+}

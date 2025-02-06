@@ -1,0 +1,14 @@
+{# ================================================================== #}
+{# Pages - Entry
+{# ================================================================== #}
+
+{% extends "_layout" %}
+
+{% block content %}
+  {# Blocks #}
+  {% include '_partials/blocks' with {
+    groups: [
+      { field: 'pageContent' },
+    ],
+  } %}
+{% endblock %}

@@ -1,0 +1,22 @@
+{# =============================================================== #}
+{# Styleguide Item
+{# =============================================================== #}
+{#
+{% include 'styleguide/_partials/styleguide-item' with {
+  name: 'My Component',
+  code: '{% include "_partials/card-a" with { foo: 'bar' } only %}',
+  modifiers: ['dark'],
+} only %}
+#}
+
+{% set classes = craft.twig.modifiers('styleguide-item', modifiers ?? []) %}
+
+<div class="styleguide-item {{ classes ?? '' }}">
+  <div id="{{ name | kebab }}" class="styleguide-item__name">{{ name }} <a href="#{{ name | kebab }}" class="styleguide-item__anchor">#</a></div>
+  <div class="styleguide-item__code">
+    {% include 'styleguide/_partials/styleguide-code' with {
+      code: code
+    } only %}
+  </div>
+  <div class="styleguide-item__example">{{ include(template_from_string(code | raw)) }}</div>
+</div>

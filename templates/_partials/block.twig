@@ -1,0 +1,47 @@
+{# =============================================================== #}
+{# Block
+{# =============================================================== #}
+{#
+
+This shouldn't typically be used directly. Instead, use `_partials/blocks`
+which uses this internally.
+
+{% include '_partials/block' with {
+  handle: 'foo',
+  previousBlock: {},
+  nextBlock: {},
+  block: {
+
+  },
+  debug: false
+} only %}
+#}
+
+{% set modifiers = modifiers ??? [] %}
+
+{# Dasherize handles #}
+{% set handle = craft.twig.dasherize(handle) %}
+{% if previousBlock ?? null %}
+  {% set previousBlock = previousBlock | merge({ handle: craft.twig.dasherize(previousBlock.handle) }) %}
+{% endif %}
+{% if nextBlock ?? null %}
+  {% set nextBlock = nextBlock | merge({ handle: craft.twig.dasherize(nextBlock.handle) }) %}
+{% endif %}
+
+{% embed '_embeds/l-section' with {
+  classes: "js-block-#{handle} " ~ (classes ?? ''),
+  modifiers: [handle] | merge(craft.twig.blockClasses(handle, block, previousBlock ?? null, nextBlock ?? null)),
+} %}
+  {% block content %}
+    {% include '_partials/blocks/' ~ handle ignore missing %}
+
+    {% if debug ?? false %}
+      <div
+        style="display: inline-block; left: 0; transform-origin: 0 0; transform: rotate(-90deg); position: absolute; z-index: 1;"
+      >
+        <p
+          style="font-family: 'Atlas Typewriter', monospace; font-size: 12px; line-height: 1; color: black; background-color: #eee; display: inline-block; position: relative; padding: 8px 12px 7px;">{{ handle | title | replace('-', ' ') }}</p>
+      </div>
+    {% endif %}
+  {% endblock %}
+{% endembed %}

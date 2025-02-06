@@ -1,0 +1,164 @@
+/*
+Layout - Section
+
+Reusable content container, primarily responsible for managing common
+spacing and relationships between various vertical sections of the site.
+*/
+
+@mixin l-section-max {
+  @include outer-padding;
+
+  .l-section__inner {
+    @include max-width;
+  }
+}
+
+@mixin space-top {
+  @include size(section-vertical, padding-top);
+}
+
+@mixin space-bottom {
+  @include size(section-vertical, padding-bottom);
+}
+
+.l-section {
+  position: relative;
+}
+
+.l-section__inner {
+}
+
+// ---------------------------------------------------------------
+// Modifier - Max Width
+// ---------------------------------------------------------------
+
+.l-section--max {
+  @include l-section-max;
+}
+
+// ---------------------------------------------------------------
+// Modifier - Padding
+// ---------------------------------------------------------------
+
+.l-section--space-top {
+  @include space-top;
+}
+
+.l-section--space-bottom {
+  @include space-bottom;
+}
+
+.l-section--space-vert {
+  @include space-top;
+  @include space-bottom;
+}
+
+// ---------------------------------------------------------------
+// Modifier - Bleed
+// ---------------------------------------------------------------
+
+// "Bleed" sections will not automatically have space before or after them.
+// This allows them to sit flush with their neighboring blocks.
+
+@mixin bleed-top {
+  @include size(none, padding-top);
+}
+
+@mixin bleed-bottom {
+  @include size(none, padding-bottom);
+}
+
+.l-section--bleed-top:not(.l-section--bleed-top-mobile) {
+  @include bleed-top;
+}
+
+.l-section--bleed-bottom:not(.l-section--bleed-bottom-mobile) {
+  @include bleed-bottom;
+}
+
+.l-section--bleed-top-mobile {
+  @include media('<medium') {
+    @include bleed-top;
+  }
+}
+
+.l-section--bleed-bottom-mobile {
+  @include media('<medium') {
+    @include bleed-bottom;
+  }
+}
+
+// ---------------------------------------------------------------
+// Modifier - Overflow Hidden
+// ---------------------------------------------------------------
+
+.l-section--overflow-hidden {
+  overflow-x: clip;
+}
+
+// ---------------------------------------------------------------
+// Background Color
+// ---------------------------------------------------------------
+
+.l-section--bg-light {
+  @include theme-light;
+  background-color: var(--theme-bg);
+}
+
+.l-section--bg-dark {
+  @include theme-dark;
+  background-color: var(--theme-bg);
+}
+
+// ---------------------------------------------------------------
+// Adjacent Block Spacing
+// ---------------------------------------------------------------
+
+$bg-colors: light, dark;
+
+@each $bg-color in $bg-colors {
+  $color: '' + $bg-color;
+  @include media('<medium') {
+    .l-section--bg-#{$color}:not(.l-section--bleed-bottom)
+      + .l-section--bg-#{$color}:not(.l-section--bleed-top):not(
+        .l-section--bleed--top-mobile
+      ) {
+      @include size(section-vertical, margin-top, $negative: true);
+    }
+  }
+
+  @include media('>=medium') {
+    .l-section--bg-#{$color}:not(.l-section--bleed-bottom)
+      + .l-section--bg-#{$color}:not(.l-section--bleed-top) {
+      @include size(section-vertical, margin-top, $negative: true);
+    }
+  }
+}
+
+// ---------------------------------------------------------------
+// Borders
+// ---------------------------------------------------------------
+
+.l-section--border-bottom.l-section--space-bottom {
+  @include size(none, padding-bottom);
+
+  .l-section__inner {
+    @include space-bottom;
+  }
+}
+
+.l-section--border-top {
+  border-top: 1px solid var(--theme-rule);
+
+  &.l-section--space-top {
+    @include space-top;
+  }
+}
+
+// ---------------------------------------------------------------
+// Unique styles
+// ---------------------------------------------------------------
+
+// .l-section--foo + .l-section--bar {
+
+// }

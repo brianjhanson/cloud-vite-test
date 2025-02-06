@@ -1,0 +1,9 @@
+/*
+Absolute
+
+Positions an element absolutely at a specified distance from all sides.
+*/
+
+@mixin absolute($distance: 0) {
+  @include position($property: absolute, $distance: $distance);
+}

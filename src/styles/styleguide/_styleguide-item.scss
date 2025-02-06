@@ -1,0 +1,64 @@
+/*
+Styleguide Item
+
+An individual styleguide item
+*/
+
+.styleguide-item {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.styleguide-item__name {
+  font-size: 18px;
+  width: 100%;
+}
+
+.styleguide-item__anchor {
+  text-decoration: none;
+  color: #bbb;
+  transition: color 0.15s;
+
+  &:hover {
+    color: inherit;
+  }
+}
+
+.styleguide-item__code,
+.styleguide-item__example {
+  margin-top: 20px;
+}
+
+.styleguide-item__code {
+  width: 100%;
+
+  @include media('>=medium') {
+    width: 380px;
+    margin-right: 40px;
+  }
+}
+
+.styleguide-item__example {
+  flex: 1;
+}
+
+// ---------------------------------------------------------------
+// Modifiers - Background
+// ---------------------------------------------------------------
+
+.styleguide-item--dark {
+  .styleguide-item__example {
+    padding: 4rem;
+    background-color: black;
+  }
+}
+
+// ---------------------------------------------------------------
+// Modifiers - Full
+// ---------------------------------------------------------------
+
+.styleguide-item--full {
+  .styleguide-item__example {
+    flex-basis: 100%;
+  }
+}

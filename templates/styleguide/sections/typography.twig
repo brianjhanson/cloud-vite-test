@@ -1,0 +1,32 @@
+{# ================================================================== #}
+{# Styleguide: Typography
+{# ================================================================== #}
+
+{% extends "styleguide/_layout" %}
+
+{% block styleguideContent %}
+  <h3 class="styleguide-heading">Type Styles</h3>
+  {% for item in [
+    'a'
+  ] %}
+    {% include 'styleguide/_partials/styleguide-type-item' with {
+      name: item
+    } only %}
+  {% endfor %}
+
+  {# Create new styleguide items with the following…
+
+  {% include 'styleguide/_partials/styleguide-items' with {
+    items: {
+      'My Component': {
+        code: "
+        {% include '_partials/foo' with {
+          bar: 'puppies'
+        } %}
+        "
+      }
+    }
+  } only %}
+
+  #}
+{% endblock %}

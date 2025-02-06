@@ -1,0 +1,139 @@
+/*
+Image
+
+Wraps all images
+
+.image--fade             - Transitions image in with fade
+.image--cover            - Scales image to entirely cover element
+.image--contain          - Scales max dimension to fill element while preserving ratio
+.image--wipe             - Transitions image in with wipe
+*/
+
+.image {
+  background-color: var(--theme-bg-faint);
+}
+
+.image__inner {
+  width: 100%;
+
+  .image__img,
+  img,
+  picture > img {
+    width: 100%;
+  }
+
+  // Don't show srcset-powered images without javascript enabled
+  > img {
+    display: none;
+  }
+
+  .js & > img {
+    display: block;
+  }
+}
+
+// Don't show <noscript> images when javascript is enabled
+// (only needed in special cases in some browsers)
+.js img.noscript {
+  display: none !important;
+}
+
+// ---------------------------------------------------------------
+// Modifier - Fade
+// ---------------------------------------------------------------
+
+/*
+This will only work if you have javascript set up to load an .is-loaded
+class when the image is loaded.
+*/
+
+.js .image--fade {
+  .image__img,
+  img {
+    transition: 2s ease(out-expo);
+    transition-property: opacity;
+    will-change: opacity;
+    opacity: 0.001;
+  }
+}
+
+.js .image--fade.is-ready.is-visible {
+  .image__inner,
+  .image__img,
+  img {
+    opacity: 1;
+  }
+}
+
+// ---------------------------------------------------------------
+// Modifier - Contain
+// ---------------------------------------------------------------
+
+.image--contain {
+  @include absolute;
+
+  .image__inner {
+    @include absolute;
+
+    .js & > img {
+      @include bg-cover(contain, 100% 50%);
+    }
+  }
+}
+
+// ---------------------------------------------------------------
+// Modifier - Cover
+// ---------------------------------------------------------------
+
+.image--cover {
+  @include absolute;
+
+  .image__inner {
+    @include absolute;
+
+    .js & > img {
+      @include bg-cover(cover);
+    }
+  }
+}
+
+// ---------------------------------------------------------------
+// Modifier - Wipe
+// ---------------------------------------------------------------
+
+/*
+This will only work if you have javascript set up to load an .is-visible
+class when the image is loaded.
+*/
+
+.js .image--wipe {
+  overflow: clip;
+
+  .image__inner,
+  .image__img,
+  img {
+    transition: 2s ease(in-out-quint);
+    transition-property: transform, opacity;
+    will-change: transform, opacity;
+  }
+
+  .image__inner {
+    transform: translateY(100%);
+    overflow: clip;
+  }
+
+  .image__img,
+  img {
+    transform: translateY(-100%);
+    opacity: 0.3;
+  }
+}
+
+.js .image--wipe.is-ready.is-visible {
+  .image__inner,
+  .image__img,
+  img {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

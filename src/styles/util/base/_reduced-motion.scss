@@ -1,0 +1,17 @@
+/*
+Reduced Motion
+
+Apply effects based on reduced motion preference.
+*/
+
+@mixin reduced-motion {
+  @media (prefers-reduced-motion) {
+    @content;
+  }
+}
+
+@mixin no-reduced-motion {
+  @media (prefers-reduced-motion: no-preference) {
+    @content;
+  }
+}

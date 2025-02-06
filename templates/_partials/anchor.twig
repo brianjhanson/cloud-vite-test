@@ -1,0 +1,10 @@
+{# =============================================================== #}
+{# Anchor
+{# =============================================================== #}
+{#
+  {% include '_partials/anchor' with {
+    id: 'my-anchor-text',
+  } only %}
+#}
+
+<a id="{{ id }}" class="anchor" aria-hidden="true" tabindex="-1"></a>

@@ -1,0 +1,35 @@
+{# =============================================================== #}
+{# Slider - Example
+{# =============================================================== #}
+{#
+  {% include '_partials/slider-example' with {
+    items: [
+      '<p>Any html can go in here</p>',
+    ],
+    label: 'Appropriate accessibility label for item.',
+    key: 'my-unique-key',
+  } %}
+#}
+
+{% set slides = [] %}
+
+{% for itemContent in items ??? [] %}
+  {% set slide %}
+      <div class="slider-example__item">
+        {# Slide content goes here #}
+        {{ itemContent }}
+      </div>
+  {% endset %}
+
+  {% set slides = slides | push(slide) %}
+{% endfor %}
+
+<div class="slider-example">
+  {% include '_partials/slider-base' with {
+    objectName: 'slider-example',
+    moduleName: 'slider-example',
+    key: key,
+    label: label,
+    slides: slides,
+  } only %}
+</div>

@@ -1,0 +1,37 @@
+/*
+Splide Number Pagination
+
+Common pagination style for Splide sliders
+*/
+
+@mixin splide-number-pagination {
+  .splide__pagination {
+    counter-reset: pagination-num;
+    justify-content: flex-start;
+  }
+
+  .splide__pagination__page {
+    @include reset-input;
+    margin-right: 2rem;
+    color: var(--theme-text);
+
+    &.is-active {
+      opacity: 0.5;
+    }
+
+    @include not-touch {
+      transition: color $transition-hover-color;
+      cursor: pointer;
+
+      &:hover,
+      &:focus {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  .splide__pagination__page:before {
+    counter-increment: pagination-num;
+    content: counter(pagination-num, decimal-leading-zero) ' ';
+  }
+}

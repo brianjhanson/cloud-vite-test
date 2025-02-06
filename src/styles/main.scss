@@ -1,0 +1,52 @@
+// ===============================================================
+// Main
+// ===============================================================
+
+// Vendor
+@import 'normalize.css/normalize.css';
+@import 'reset.css/reset.css';
+@import 'include-media/dist/include-media';
+@import '@splidejs/splide/css/core';
+
+// Fonts
+@import 'base/fonts';
+
+// Utilities
+@import 'util/base/**/*.scss';
+@import 'util/project/**/*.scss';
+
+// Variables
+@import 'base/variables';
+
+// Toolkit
+@import '@malven/sass-toolkit/color';
+@import '@malven/sass-toolkit/size';
+@import '@malven/sass-toolkit/type-styles';
+
+// Toolkit Properties + Helpers
+@include output-size-custom-properties;
+@include output-color-helpers;
+@include output-type-helpers;
+@include output-size-helpers;
+
+// Helpers
+@import 'base/helpers';
+
+// Base
+@import 'base/theme';
+@import 'base/base';
+@import 'base/reveal';
+
+// Components
+@import 'layout/**/*.scss';
+@import 'objects/**/*.scss';
+
+// Vendor Customizations
+@import 'vendor-customization/**/*.scss';
+
+// Styleguide
+@import 'styleguide/**/*.scss';
+
+body {
+  background-color: red;
+}

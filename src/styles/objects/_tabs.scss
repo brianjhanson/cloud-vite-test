@@ -1,0 +1,80 @@
+/*
+Tabs
+
+Accessible tabbed content
+
+https://www.w3.org/WAI/ARIA/apg/example-index/tabs/tabs-automatic.html
+*/
+
+.tabs {
+  // ---------------------------------------------------------------
+  // Behavioral Styles
+  // ---------------------------------------------------------------
+
+  // Do not modify these
+
+  [role='tab'],
+  [role='tab']:focus,
+  [role='tab']:hover {
+  }
+
+  [role='tab'] span.focus {
+  }
+
+  [role='tabpanel'] {
+  }
+
+  [role='tabpanel'].is-hiding {
+  }
+
+  .js & [role='tabpanel'].is-hidden {
+    display: none;
+  }
+
+  // ---------------------------------------------------------------
+  // Decorative Styles
+  // ---------------------------------------------------------------
+
+  // Change these to suit the design
+
+  [role='tablist'] {
+  }
+
+  [role='tab'],
+  [role='tab']:focus,
+  [role='tab']:hover {
+  }
+
+  [role='tab'][aria-selected='true'] {
+  }
+
+  [role='tab'][aria-selected='false'] {
+  }
+
+  [role='tab'] span.focus {
+  }
+
+  [role='tab'][aria-selected='false']:hover span.focus {
+  }
+
+  [role='tabpanel'] {
+  }
+
+  // Panel Transition
+
+  [role='tabpanel'].is-hiding,
+  [role='tabpanel'].is-hidden {
+    // This doesn't itself do anything, but you can use this for children to trigger transitions
+  }
+}
+
+// ---------------------------------------------------------------
+// Modifier - Modifier Name
+// ---------------------------------------------------------------
+
+.tabs--foo {
+  @include media('>=medium') {
+    [role='tablist'] {
+    }
+  }
+}

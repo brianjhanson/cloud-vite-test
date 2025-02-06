@@ -1,0 +1,86 @@
+/*
+Reveal
+
+Styles for revealed elements
+*/
+
+$h-reveal-duration: 1.5s;
+$h-reveal-offset: 0.8rem;
+$h-reveal-delay-increment: 0.05 * $h-reveal-duration;
+
+@function reveal-delay($idx) {
+  @return $idx * $h-reveal-delay-increment;
+}
+
+@mixin reveal-delay-cols($num) {
+  @for $idx from 1 through $num {
+    .js &:nth-child(#{$num}n + #{$idx}) {
+      transition-delay: reveal-delay($idx);
+    }
+  }
+}
+
+@mixin reveal-hidden($direction) {
+  $directions: (
+    'fade': translateY(0),
+    'up': translateY($h-reveal-offset),
+    'up-less': translateY(1rem),
+    'down': translateY(-$h-reveal-offset),
+    'left': translateX($h-reveal-offset * 2),
+    'right': translateX(-$h-reveal-offset),
+    'scale': scale(0.9),
+  );
+  transition: $h-reveal-duration ease(out-quint);
+  transition-property: opacity, transform;
+  opacity: 0;
+  transform: map-get($directions, $direction);
+}
+
+@mixin reveal {
+  opacity: 1;
+  transform: translateY(0) translateX(0) scale(1);
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+  @each $direction
+    in ('fade', 'up', 'up-less', 'down', 'left', 'right', 'scale')
+  {
+    .js [data-module-reveal='#{$direction}'] {
+      @include reveal-hidden($direction);
+
+      &.is-visible {
+        @include reveal;
+      }
+    }
+  }
+}
+
+// Does nothing on its on, but will trigger the addition of a .is-visible
+// class on the element which can be use to implement custom animation.
+.js [data-module-reveal='animate'] {
+}
+
+// Does nothing on its on, but if set all children will animate in
+// when this element animates in.
+.js [data-module-reveal='stagger-children'] {
+}
+
+// Automatically staggered delays on children based on :nth-child
+@for $idx from 1 through 50 {
+  .js [data-reveal-delay]:nth-child(#{$idx}) {
+    transition-delay: reveal-delay($idx);
+  }
+}
+
+// Manual delays
+@for $idx from 1 through 50 {
+  .js [data-reveal-delay='#{$idx}']:nth-child(1n) {
+    transition-delay: reveal-delay($idx);
+  }
+}
+
+// Remove all reveals
+.h-no-reveal {
+  transition: none !important;
+  transition-delay: 0s !important;
+}

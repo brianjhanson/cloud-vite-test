@@ -1,0 +1,18 @@
+{# =============================================================== #}
+{# Styleguide Nav
+{# =============================================================== #}
+{#
+  {% include '_partials/styleguide-nav' with {
+    sections: [
+      'Typography',
+      …
+    ]
+  } only %}
+#}
+
+<nav class="styleguide-nav">
+  {% for section in sections ?? [] %}
+    {% set url = url('styleguide/sections/' ~ section | kebab) %}
+    <a href="{{ url }}" class="styleguide-nav__item {{ craft.app.request.absoluteUrl == url ? 'is-active' : '' }}">{{ section }}</a>
+  {% endfor %}
+</nav>

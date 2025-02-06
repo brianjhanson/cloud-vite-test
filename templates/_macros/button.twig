@@ -1,0 +1,61 @@
+{# =============================================================== #}
+{# Buttons
+{# =============================================================== #}
+{#
+{% import '_macros/button' as button %}
+#}
+
+
+{# ------------------------------------------------------------------ #}
+{# Basic
+{# ------------------------------------------------------------------ #}
+{#
+{% import '_macros/button' as button %}
+{{ button.basic({
+  text: 'Lorem Ipsum Dolor',
+  url: siteUrl,
+  target: '_blank',
+  arrow: true,
+}) }}
+
+OR
+
+{% import '_macros/button' as button %}
+{{ button.basic({
+  text: 'Lorem Ipsum Dolor',
+  type: 'button',
+  arrow: true,
+}) }}
+
+Renders `<button>` or `<a>` depending on parameters. See `_macros/bits.twig` for additional options.
+#}
+
+{%- macro basic(options = {}) -%}
+  {% import '_macros/bits' as bits %}
+
+  {% set settings = {
+    el: null,
+    disabled: false,
+    target: '_self',
+    arrow: true,
+    url: null,
+  } | merge(options) %}
+
+  {# Graphic #}
+  {% set graphic = null %}
+  {% if settings.arrow %}
+    {% set graphic %}
+      {# svg.use arrow/graphic goes here #}
+    {% endset %}
+  {% endif %}
+
+  {% set defaults = {
+    mainClass: 'button-basic',
+    graphic: graphic ??? null,
+    modifiers: [
+
+    ],
+  } %}
+  {% set options = defaults | merge(options) %}
+  {{ bits.btn(options) }}
+{%- endmacro -%}
